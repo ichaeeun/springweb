@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:c="http://www.springframework.org/schema/c"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+         http://www.springframework.org/schema/websocket
+      http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
+      
+      <!--  
+      # component-scan 옵션 
+      1. 특정한 package를 지정하여 해당 패키지에 포함되어 있는 객체를 
+      	선택하여 container메모리에 로딩하는 것을 말한다. 
+      2. 해당 객체들의 id/name값은 자동으로 클래스명의 소문자형태로 지정이 된다. 
+      	(id ="book") class="springdi.z01_vo.Book"
+       -->
+       <!-- springdi.z02_vo에 Person, Product 클래스를 넣
+       		해당 패키지에 있는 내용이 호출되어 사용할 수 있게 하세요 
+       		Person : 이름 p02, Product 이름 prod03 으로 설정 
+        -->
+        <context:component-scan base-package="springdi.z02_vo"></context:component-scan>
+</beans>      

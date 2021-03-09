@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:c="http://www.springframework.org/schema/c"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+         http://www.springframework.org/schema/websocket
+      http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
+      
+      <!-- 
+      ex) Restore VO객체 생성 
+      1. ArrayList<String>, Set<String>, Properties, Map<String,String> 
+      	할당할 수 있는 필드를 선언하고, set 메서드 선언하고, 
+      	toString() 메서드를 통해서 해당 저장된 내용을 출력처리 하세요 
+      2. 위 정의된 내용을 DI로 선언, DL로 호출하여 처리 
+      [arry = [Arry1, Arry2, Arry3]],
+      [set=[홍길동1, 홍길동2, 홍길동3]],
+      [prop={cat=pi, dog=maknae}],
+      [map={고양이=파이, 강아지=막내}]
+      	map 객체는 key는 유일처리된다. 마지막에 저장된 key와 value값으로 설정이 된다. 
+       -->
+       <bean id="restore" class="springdi.z01_vo.Restore">
+       		<property name="arry">
+       			<list value-type="java.lang.String">
+       				<value>Arry1</value>
+       				<value>Arry2</value>
+       				<value>Arry3</value>
+       				<value>Arry3</value>
+       				<value>Arry2</value>
+       				<value>Arry1</value>
+       			</list>
+       		</property>
+       		<property name="set">
+       			<set value-type="java.lang.String">
+       				<value>홍길동1</value>
+       				<value>홍길동2</value>
+       				<value>홍길동3</value>
+       				<value>홍길동2</value>
+       				<value>홍길동3</value>
+       				<value>홍길동1</value>
+       			</set>
+       		</property>
+       		<property name="prop">
+       			<props>
+       				<prop key="cat">pi</prop>
+       				<prop key="cat">pi</prop>
+       				<prop key="dog">maknae</prop>
+       			</props>
+       		</property>
+       		<property name="map">
+       			<map>
+       				<entry key="고양이" value="이파"></entry>
+       				<entry key="고양이" value="파이"></entry>
+       				<entry key="강아지" value="막내"></entry>
+       			</map>
+       		</property>
+       </bean>
+</beans>      

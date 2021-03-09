@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+         http://www.springframework.org/schema/websocket
+      http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
+      
+      
+    
+      <bean id="p01" class="springdi.z01_vo.Compart">
+      	<constructor-arg value="CPU"></constructor-arg>
+      	<constructor-arg value="3.4GHz"></constructor-arg>
+      </bean>
+      <bean id="p02" class="springdi.z01_vo.Compart">
+      	<constructor-arg value="RAM"></constructor-arg>
+      	<constructor-arg value="16GB"></constructor-arg>
+      </bean>
+      <bean id="p03" class="springdi.z01_vo.Compart">
+      	<constructor-arg value="SSD"></constructor-arg>
+      	<constructor-arg value="256G"></constructor-arg>
+      </bean>
+      <bean id="com" class="springdi.z01_vo.Computer">
+      	<constructor-arg value="삼성"></constructor-arg>
+      	<property name="part" ref="p01"></property>
+      </bean>
+      
+      <!--  
+      public void setPart(Compart compart) {
+		this.partList.add(compart);
+	  }
+	  다중의 ArrayList형태의 객체를 담을 때, 처리 형태 
+       -->
+      <bean id="comM" class="springdi.z01_vo.Computer">
+     	<constructor-arg value="조립컴퓨터"></constructor-arg>
+     	<property name="partList">
+     		<list>
+     			<ref bean="p02"/>
+     			<ref bean="p03"/>
+     			<ref bean="p01"/>
+     		</list>
+     	</property>
+     </bean>
+</beans>      
+
+
+
+
