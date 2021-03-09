@@ -57,6 +57,16 @@ public class Mart {
 		this.prod = prod;
 	}
 	
-	
-	
+	/*
+	 * 
+      Mart - Product 
+      autowire 
+      byName 이면 
+      1. type : Product 
+      2. setProd : property prod 
+ 	==>	<bean id="prod" class="@@@.Product" 	
+      	<bean id="product" class="@@@.Product" 
+      	<bean id="p01" class="@@@.Product" 
+	 * 
+	 */
 }

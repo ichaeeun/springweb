@@ -20,28 +20,35 @@
        http://www.springframework.org/schema/util/spring-util.xsd
          http://www.springframework.org/schema/websocket
       http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
-    
-    <context:property-placeholder location="classpath:/springweb/resource/properties/info"/>
-    
-       <!-- 
-      	  스프링에서 사용하게 될 초기 로딩객체를 선언한다. 
-  		 
-      <bean class="springweb.a01_start.A01_StartController"></bean>
-      <bean class="springweb.z01_exp.A01_ExpController"></bean>
-      <bean class="springweb.a01_start.A02_EmpController"></bean>
-      <bean class="springweb.a01_start.A03_DeptController"></bean>
-      <bean class="springweb.a01_start.A04_MemberController"></bean>
-      <bean class="springweb.z01_exp.A02_MemberController"></bean>
-      -->
-      <!--  특정한 패키지의 Controller 단에 대한 객체 메모리 로딩 
-      		include-filter type="annotation" 
-      		expression = "org.springframework.stereotype.Controller" 
-      -->
-      <context:component-scan base-package="springweb">
-      		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-      		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-      		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
-      </context:component-scan>
+      <!-- 
+      springdi.z05_vo 패키지의 두개의 클래스를 이용해서 Product 클래스를 prod01,prod02,prod03을 선언하고 
+      autowire옵션에 할당하여 출력처리 하세요 
+       -->
+      <bean id="prod01" class="springdi.z05_vo.Product">
+      	 <constructor-arg value="연어캔"></constructor-arg>
+      	 <constructor-arg value="4000"></constructor-arg>
+      	 <constructor-arg value="5"></constructor-arg>
+      </bean>
+       <bean id="prod02" class="springdi.z05_vo.Product">
+      	 <constructor-arg value="닭고기캔"></constructor-arg>
+      	 <constructor-arg value="6000"></constructor-arg>
+      	 <constructor-arg value="1"></constructor-arg>
+      </bean>
+       <bean id="prod03" class="springdi.z05_vo.Product">
+      	 <constructor-arg value="참치캔"></constructor-arg>
+      	 <constructor-arg value="5000"></constructor-arg>
+      	 <constructor-arg value="10"></constructor-arg>
+      </bean>
+      
+      <bean id="buyer" class="springdi.z05_vo.Buyer" autowire="byName">
+      	<constructor-arg value="파이"></constructor-arg>
+      </bean>
 </beans>      
+
+
+
+
+
+
 
 

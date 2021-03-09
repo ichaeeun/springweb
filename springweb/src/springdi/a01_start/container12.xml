@@ -20,28 +20,30 @@
        http://www.springframework.org/schema/util/spring-util.xsd
          http://www.springframework.org/schema/websocket
       http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
-    
-    <context:property-placeholder location="classpath:/springweb/resource/properties/info"/>
-    
-       <!-- 
-      	  스프링에서 사용하게 될 초기 로딩객체를 선언한다. 
-  		 
-      <bean class="springweb.a01_start.A01_StartController"></bean>
-      <bean class="springweb.z01_exp.A01_ExpController"></bean>
-      <bean class="springweb.a01_start.A02_EmpController"></bean>
-      <bean class="springweb.a01_start.A03_DeptController"></bean>
-      <bean class="springweb.a01_start.A04_MemberController"></bean>
-      <bean class="springweb.z01_exp.A02_MemberController"></bean>
-      -->
-      <!--  특정한 패키지의 Controller 단에 대한 객체 메모리 로딩 
-      		include-filter type="annotation" 
-      		expression = "org.springframework.stereotype.Controller" 
-      -->
-      <context:component-scan base-package="springweb">
-      		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-      		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-      		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
-      </context:component-scan>
+      
+       <bean id="part1" class="springdi.z01_vo.Compart">
+        	<constructor-arg value="CPU"></constructor-arg>
+        	<constructor-arg value="3.2GHz"></constructor-arg>
+        </bean>
+        <!-- 
+       ***  byType일 때는 둘 중에 식별자를 선언하지 않는 이상 에러 발생 
+        ERROR: expected single matching bean but found 2: part1,part2 -->
+        <bean id ="part2" class="springdi.z01_vo.Compart">
+        	<constructor-arg value="RAM"></constructor-arg>
+        	<constructor-arg value="16GB"></constructor-arg>
+        </bean> 
+         <bean id ="part3" class="springdi.z01_vo.Compart">
+        	<constructor-arg value="SSD"></constructor-arg>
+        	<constructor-arg value="256GB"></constructor-arg>
+        </bean> 
+        <!-- 
+        autowire="byName" 이면, 해당 id값과 설정하는 property와 동일한 것을 
+        객체에 할당한다. 
+       	
+         -->
+        <bean id="computer" class="springdi.z01_vo.Computer2" autowire="byName">
+        	<constructor-arg value="레노버"></constructor-arg>
+        </bean>
+      
+      
 </beans>      
-
-

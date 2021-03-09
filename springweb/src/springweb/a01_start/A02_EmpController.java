@@ -1,21 +1,30 @@
 package springweb.a01_start;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jspexp.a03_database.A01_Dao;
-import jspexp.a03_database.A02_DeptDao;
-import jspexp.z01_vo.Dept;
 import jspexp.z01_vo.Emp;
 
 // springweb.a01_start.A02_EmpController
 @Controller 
 public class A02_EmpController {
+	
+	@Value("${user2}")		// ${user} ichaeeun 
+	private String user;	// 공통으로 설정된 변수가 할당된다. 
+	@Value("${pass}")
+	private String pass; 
 	// emp검색 수정 처리 
 	//  http://localhost:8080/springweb/empList.do
 	@RequestMapping("empList.do")
 	public String empList(Emp sch, Model d) {
+		
+		System.out.println("사용자계정");
+		System.out.println("계정명: "+user);
+		System.out.println("패스워드: "+pass);
+		
 		A01_Dao dao = new A01_Dao();
 		if(sch.getEname()==null) sch.setEname("");
 		if(sch.getJob()==null) sch.setJob("");
