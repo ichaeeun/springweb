@@ -1,27 +1,25 @@
 package springdi.a01_exp;
 
 import org.springframework.context.support.AbstractApplicationContext;
+
 import org.springframework.context.support.GenericXmlApplicationContext;
 
-import springdi.z01_vo.Product;
-import springdi.z01_vo.Collection;
-import springdi.z01_vo.Team;
+import springdi.z04_vo.Player;
+import springdi.z04_vo.Game;
+import springdi.z04_vo.Team;
 
-public class A03_0308 {
+public class A04_0308 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext("springdi/a01_exp/container1.xml");
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("springdi/a01_exp/container2.xml");
+		// Component 기본 형식으로 호출 
+		Game g01 = ctx.getBean("g01",Game.class);
+		System.out.println("g01: "+g01);
+		Player player = ctx.getBean("player",Player.class);
+		System.out.println("player: "+player);
 		Team team = ctx.getBean("team",Team.class);
-		team.show();
-		Collection col = ctx.getBean("col",Collection.class);
-		System.out.println(col);
-		Product prod = ctx.getBean("prod",Product.class);
-		System.out.println("#파일에 객체 호출#");
-		System.out.println("물건명: "+prod.getName());
-		System.out.println("가격: "+prod.getPrice());
-		System.out.println("갯수: "+prod.getCnt());
-		
+		System.out.println("team: "+team);
 /*
  [spring]
 [하] 1. 1:다의 예제로  스포츠에  팀과 선수를 설정하여 Team, ArrayList<Player> 형태로 처리하여 출력하세요

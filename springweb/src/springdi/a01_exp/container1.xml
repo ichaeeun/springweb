@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:c="http://www.springframework.org/schema/c"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+         http://www.springframework.org/schema/websocket
+      http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
+      
+      <bean id="p01" class="springdi.z01_vo.Player">
+      		<constructor-arg value="박민우"></constructor-arg>
+      		<constructor-arg value="0.312"></constructor-arg>
+      </bean>
+	  <bean id="p02" class="springdi.z01_vo.Player">
+      		<constructor-arg value="양의지"></constructor-arg>
+      		<constructor-arg value="0.328"></constructor-arg>
+      </bean>      
+      <bean id="p03" class="springdi.z01_vo.Player">
+      		<constructor-arg value="나성범"></constructor-arg>
+      		<constructor-arg value="0.304"></constructor-arg>
+      </bean>
+      <!-- 
+      public void setPlist(ArrayList<Player> plist) 
+       -->
+      <bean id="team" class="springdi.z01_vo.Team">
+      		<constructor-arg value="NC"></constructor-arg>
+      		<property name="plist">
+      			<list>
+      				<!-- 객체를 할당할 때, ref속성값 bean으로 선언된 객체의 id나 name값을 할당한다. -->
+      				<ref bean="p01"/>
+      				<ref bean="p02"/>
+      				<ref bean="p03"/>
+      			</list>
+      		</property>
+      </bean>
+      
+      <bean id="col" class="springdi.z01_vo.Collection">
+      	<property name="list">
+      		<list>
+      			<value>홍길동</value>
+      			<value>신길동</value>
+      			<value>김길동</value>
+      			<value>홍길동</value>
+      		</list>
+      	</property>
+      	<property name="sets">
+      		<set>
+      			<value>홍길동</value>
+      			<value>신길동</value>
+      			<value>김길동</value>
+      			<value>홍길동</value>
+      		</set>
+      	</property>
+      	<property name="props">
+      		<props>
+      			<prop key="홍길동">1000</prop>
+      			<prop key="신길동">2000</prop>
+      			<prop key="김길동">3000</prop>
+      			<prop key="홍길동">4000</prop>
+      		</props>
+      	</property>
+      	<property name="maps">
+      		<map>
+      			<entry key="홍길동" value="일반사용자"></entry>
+      			<entry key="김길동" value="관리자"></entry>
+      			<entry key="신길동" value="일반사용자"></entry>
+      			<entry key="홍길동" value="관리자"></entry>
+      		</map>
+      	</property>
+      </bean>
+      
+      <!--  info2파일에 key/value 형식으로 설정된 것을 해당 Key이름으로 호출하여 value값을 할당. 
+      		name=apple price=3000 cnt=2 -->
+      <context:property-placeholder location="classpath:/springdi/a01_exp/info2"/>
+      <bean id="prod" class="springdi.z01_vo.Product">
+      	<constructor-arg value="${name}"></constructor-arg>
+      	<constructor-arg value="${price}"></constructor-arg>
+      	<constructor-arg value="${cnt}"></constructor-arg>
+      </bean>
+</beans>      
+
+
+
+
+
+
+
+
+
+
