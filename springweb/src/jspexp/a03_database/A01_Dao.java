@@ -2,23 +2,25 @@ package jspexp.a03_database;
 // jspexp.a03_database.A01_Dao
 //getEmp(int empno
 import java.sql.Connection;
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
-import jspexp.z01_vo.Member5;
-import jspexp.z01_vo.*;
+import org.springframework.stereotype.Repository;
+
+import jspexp.z01_vo.Dept;
 import jspexp.z01_vo.Emp;
 import jspexp.z01_vo.Emp3;
 import jspexp.z01_vo.Emp4;
 import jspexp.z01_vo.Emp5;
 import jspexp.z01_vo.JobSalary;
+import jspexp.z01_vo.Member5;
 // A01_Dao.empList2
+
+@Repository 
 public class A01_Dao { // DAO : database access object
 	// 1. 데이터베이스 연결 처리
 	private Connection con;

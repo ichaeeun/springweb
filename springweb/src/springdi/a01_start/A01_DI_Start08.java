@@ -8,12 +8,12 @@ import springdi.z01_vo.Mart;
 import springdi.z01_vo.Person;
 import springdi.z01_vo.Product;
 
-public class A01_DI_Start8 {
+public class A01_DI_Start08 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// 가상의 컨테이너 xml 파일 호출하기 
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext("springdi/a01_start/container8.xml");
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("springdi/a01_start/container08.xml");
 		Person p01 = ctx.getBean("person",Person.class);
 		Book book = ctx.getBean("book",Book.class);
 		Mart mart = ctx.getBean("mart",Mart.class);

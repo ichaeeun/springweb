@@ -5,7 +5,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 import springdi.z01_vo.Person;
 
-public class A01_DI_Start1 {
+public class A01_DI_Start01 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -21,7 +21,7 @@ public class A01_DI_Start1 {
 		 		로 호출하여 해당 객체를 main()메서드에서 사용할 수 있게 된다. 
 		 	4) 해당 형식으로 객체명 참조변수로 할당하면 xml에서 선언된 객체를 메모리로 사용할 수 있게된다. 
 		 */
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext("springdi/a01_start/container1.xml");
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("springdi/a01_start/container01.xml");
 		Person p01 = ctx.getBean("p01", Person.class);
 		System.out.println(p01.getName());
 		System.out.println(p01.getAge());
