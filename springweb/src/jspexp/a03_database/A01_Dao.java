@@ -535,14 +535,271 @@ public class A01_Dao { // DAO : database access object
 
 
 
-	// ex1) select * from dept; 처리
+	/*
+				 1. sql 작성
+				 2. VO 객체 생성 : sql의 결과값에 따른 컬럼명과 type을 확인하여 작성.
+				 3. 기능 메서드 선언.
+				  	1) 요청에 의한 입력 : 매개변수로 활용.
+				  	2) 데이터의 결과에 따라 리턴값 지정.
+				  		- insert, update, delete : void
+				  			ex) public void insertEmp(Emp ins)
+				  		- 단위 변수나 한개의 데이터
+				  			ex)
+				  			회원이 등록된 여부 : select * from member where ..
+				  			public boolean void isMember(String id, String pass)
+				  			상품의 갯수 : select count(*) from member where ...
+				  			public int memCount(Member sch)
+				  			회원 상세정보 : select * from member where id=@@@
+				  			public Member getMember(String id)
+				  		- 여러개의 데이터
+				  			ex)
+				  			공지사항
+				  			public ArrayList<Board> boardList(Board sch)
+				  			회원정보리스트
+				  			public ArrayList<Member> mlist(Member sch)
+				  			
+				  			
+				 */
+				
+				
+				
+				/*
+						 1. sql 작성
+						 2. VO 객체 생성
+						 3. 기능 메서드 선언.
+						  	1) 요청에 의한 입력 : 매개변수로 활용.
+						  	2) 데이터의 결과에 따라 리턴값 지정.
+						  		- insert, update, delete : void
+						  			ex) public void insertEmp(Emp ins)
+						  		- 단위 변수나 한개의 데이터
+						  			ex)
+						  			회원이 등록된 여부 : select * from member where ..
+						  			public boolean void isMember(String id, String pass)
+						  			상품의 갯수 : select count(*) from member where ...
+						  			public int memCount(Member sch)
+						  			회원 상세정보 : select * from member where id=@@@
+						  			public Member getMember(String id)
+						  		- 여러개의 데이터
+						  			ex)
+						  			공지사항
+						  			public ArrayList<Board> boardList(Board sch)
+						  			회원정보리스트
+						  			public ArrayList<Member> mlist(Member sch)
+						  			
+						  			
+						 */
+						
+						
+						
+						/*
+						 1. sql 작성
+						 2. VO 객체 생성
+						 3. 기능 메서드 선언.
+						  	1) 요청에 의한 입력 : 매개변수로 활용.
+						  	2) 데이터의 결과에 따라 리턴값 지정.
+						  		- insert, update, delete : void
+						  			ex) public void insertEmp(Emp ins)
+						  		- 단위 변수나 한개의 데이터
+						  			ex)
+						  			회원이 등록된 여부 : select * from member where ..
+						  			public boolean void isMember(String id, String pass)
+						  			상품의 갯수 : select count(*) from member where ...
+						  			public int memCount(Member sch)
+						  			회원 상세정보 : select * from member where id=@@@
+						  			public Member getMember(String id)
+						  		- 여러개의 데이터
+						  			ex)
+						  			공지사항
+						  			public ArrayList<Board> boardList(Board sch)
+						  			회원정보리스트
+						  			public ArrayList<Member> mlist(Member sch)
+						  				  			
+						 */
+						// 조회 처리 메서드..(매개변수 없는 처리)
+			/*
+			# PreparedStatement 객체 활용하기.
+			1. SQL의 틀을 미리 정해 놓고, 나중에 값을 지정하는 방식.
+			 	select *
+			 	from emp
+			 	where ename like '%'||?||'%'
+			 	and job like '%'|| ? ||'%'
+			  	pstmt.setString(1, "홍"); ?의 순서 1부터 붙여서 사용한다.
+			  	pstmt.setString(2, "A");
+			2. 왜 사용하는가?
+			  	1) sql injection을 막기위해 사용된다.
+			  	2) db 서버의 sql 해석 속도를 향상시켜 빠른 처리를 한다.
+			  	
+			 * */		
+						public ArrayList<Emp> empList(Emp sch){
+							ArrayList<Emp> list=new ArrayList<Emp>();
+					//		1. 공통연결메서드호출
+							try {
+								setCon();
+					//			2. Statement 객체 생성.(연결객체-Connection)
+								/*
+								 SELECT e.*, d.dname, m.ename mname
+								FROM emp2 e, dept2 d , emp2 m
+								WHERE e.mgr = m.empno AND e.deptno=d.deptno AND e.ename LIKE '%'||upper('')||'%'
+								AND e.job  LIKE '%'||upper('')||'%'
+								AND e.deptno = 30 ANd e.mgr=7698 ORDER BY e.empno DESC
+								 */
+								String sql = "SELECT e.*, d.dname, m.ename mname \r\n"
+										+ "	FROM emp2 e, dept2 d , emp2 m \r\n"
+										+ "	WHERE e.mgr = m.empno AND e.deptno=d.deptno AND e.ename LIKE '%'||upper( ? )||'%'\r\n"
+										+ "	AND e.job  LIKE '%'||upper( ? )||'%'\r\n";
+								if(sch.getDeptno()!=0) {
+									sql += "AND e.deptno =?";
+								}
+								if(sch.getMgr()!=0) {
+									sql += " ANd e.mgr=?";
+								}
+								sql += "ORDER BY e.empno desc"; 
+								// ; 빼주세요. ^^(주의)
+								System.out.println("## mgr sql ##");
+								System.out.println(sql);
+								pstmt = con.prepareStatement(sql);
+								pstmt.setString(1, sch.getEname());	
+								pstmt.setString(2, sch.getJob());
+								int cIdx=3;
+								if(sch.getDeptno()!=0) pstmt.setInt(cIdx++, sch.getDeptno());
+								if(sch.getMgr()!=0) pstmt.setInt(cIdx++, sch.getMgr());
+								
+					//			3. ResultSet 객체 생성.(대화객체-Statement)
+								rs = pstmt.executeQuery();
+								int cnt =1;
+								while(rs.next()) {
+									
+									System.out.print(cnt+++":"+rs.getInt(1)+"\t");
+									System.out.print(rs.getString("ename")+"\t");
+									System.out.print(rs.getString("job")+"\t");
+									System.out.print(rs.getInt("mgr")+"\t");
+									System.out.print(rs.getDate("hiredate")+"\t");
+									System.out.print(rs.getDouble("sal")+"\t");
+									System.out.print(rs.getDouble("comm")+"\t");
+									System.out.print(rs.getInt("deptno")+"\n");
+									
+									// 1. 객체 생성과 할당.
+									//    int empno, String ename, String job, int mgr,
+									//    Date hiredate, double sal, double comm, 
+									//    int deptno
+									Emp e = new Emp(rs.getInt("empno"), 
+											rs.getString(2),rs.getString(3),
+											rs.getInt(4), rs.getDate("hiredate"),
+											rs.getDouble(6), rs.getDouble(7),
+											rs.getInt(8),rs.getString(9),rs.getString(10));
+									//  2. ArrayList에 할당.
+									list.add(e);
+								}
+								System.out.println("객체의 갯수:"+list.size());
+								System.out.println("두번째 행의 ename:"+list.get(1).getEname());
+					//			4. 자원의 해제
+								rs.close();
+								pstmt.close();
+								con.close();
+					//			5. 예외 처리..								
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								System.out.println("##DB 관련 에러##");
+								System.out.println(e.getMessage());
+							} catch(Exception e) {
+								System.out.println("##기타 에러##");
+								System.out.println(e.getMessage());
+							}
+						
+							return list;
+						}
+
+
+
+	/*
+									 1. sql 작성
+									 2. VO 객체 생성
+									 3. 기능 메서드 선언.
+									  	1) 요청에 의한 입력 : 매개변수로 활용.
+									  	2) 데이터의 결과에 따라 리턴값 지정.
+									  		- insert, update, delete : void
+									  			ex) public void insertEmp(Emp ins)
+									  		- 단위 변수나 한개의 데이터
+									  			ex)
+									  			회원이 등록된 여부 : select * from member where ..
+									  			public boolean void isMember(String id, String pass)
+									  			상품의 갯수 : select count(*) from member where ...
+									  			public int memCount(Member sch)
+									  			회원 상세정보 : select * from member where id=@@@
+									  			public Member getMember(String id)
+									  		- 여러개의 데이터
+									  			ex)
+									  			공지사항
+									  			public ArrayList<Board> boardList(Board sch)
+									  			회원정보리스트
+									  			public ArrayList<Member> mlist(Member sch)
+									  				  			
+									 */
+									// 조회 처리 메서드..(매개변수 없는 처리)
+						/*
+						# PreparedStatement 객체 활용하기.
+						1. SQL의 틀을 미리 정해 놓고, 나중에 값을 지정하는 방식.
+						 	select *
+						 	from emp
+						 	where ename like '%'||?||'%'
+						 	and job like '%'|| ? ||'%'
+						  	pstmt.setString(1, "홍"); ?의 순서 1부터 붙여서 사용한다.
+						  	pstmt.setString(2, "A");
+						2. 왜 사용하는가?
+						  	1) sql injection을 막기위해 사용된다.
+						  	2) db 서버의 sql 해석 속도를 향상시켜 빠른 처리를 한다.
+						  	
+						 * */		
+				public ArrayList<Emp> mgrList(){
+					ArrayList<Emp> list=new ArrayList<Emp>();
+			//		1. 공통연결메서드호출
+					try {
+						setCon();
+			//			2. Statement 객체 생성.(연결객체-Connection)
+						String sql = "SELECT DISTINCT e.mgr, m.ename \r\n"
+								+ "FROM emp2 e, emp2 m \r\n"
+								+ "WHERE e.mgr = m.empno";
+						// ; 빼주세요. ^^(주의)
+						System.out.println(sql);
+				//		pstmt.setInt(1, sch.getMgr());	
+						pstmt = con.prepareStatement(sql);
+			//			3. ResultSet 객체 생성.(대화객체-Statement)
+						rs = pstmt.executeQuery();
+						while(rs.next()) {
+							// 1. 객체 생성과 할당
+							Emp e = new Emp(rs.getInt(1),rs.getString(2));
+							//  2. ArrayList에 할당.
+							list.add(e);
+						}
+			//			4. 자원의 해제
+						rs.close();
+						pstmt.close();
+						con.close();
+			//			5. 예외 처리..								
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.out.println("##DB 관련 에러##");
+						System.out.println(e.getMessage());
+					} catch(Exception e) {
+						System.out.println("##기타 에러##");
+						System.out.println(e.getMessage());
+					}
+				
+					return list;
+				}
+
+
+
+	// ex1) select * from dept2; 처리
 	public ArrayList<Dept> deptList(){
 		ArrayList<Dept> dlist = new ArrayList<Dept>();
 		// 1. 연결
 		try {
 			setCon();
 			// 2. 대화
-			String sql = "select * from dept";
+			String sql = "select * from dept2";
 			stmt = con.createStatement();
 			// 3. 결과
 			rs = stmt.executeQuery(sql);
@@ -578,7 +835,7 @@ public class A01_Dao { // DAO : database access object
 			setCon();
 			// 2. 대화 sql
 			String sql = "	SELECT *\r\n"
-					+ "	FROM dept\r\n"
+					+ "	from dept2\r\n"
 					+ "	WHERE dname LIKE '%'||'"+sch.getDname()+"'||'%'\r\n"
 					+ "	AND loc LIKE '%'||'"+sch.getLoc()+"'||'%'";
 			stmt = con.createStatement();
@@ -1014,6 +1271,118 @@ INSERT INTO emp2 values(
 
 
 	/*
+					 1. sql 작성
+					 2. VO 객체 생성 : sql의 결과값에 따른 컬럼명과 type을 확인하여 작성.
+					 3. 기능 메서드 선언.
+					  	1) 요청에 의한 입력 : 매개변수로 활용.
+					  	2) 데이터의 결과에 따라 리턴값 지정.
+					  		- insert, update, delete : void
+					  			ex) public void insertEmp(Emp ins)
+					  		- 단위 변수나 한개의 데이터
+					  			ex)
+					  			회원이 등록된 여부 : select * from member where ..
+					  			public boolean void isMember(String id, String pass)
+					  			상품의 갯수 : select count(*) from member where ...
+					  			public int memCount(Member sch)
+					  			회원 상세정보 : select * from member where id=@@@
+					  			public Member getMember(String id)
+					  		- 여러개의 데이터
+					  			ex)
+					  			공지사항
+					  			public ArrayList<Board> boardList(Board sch)
+					  			회원정보리스트
+					  			public ArrayList<Member> mlist(Member sch)
+					  			
+					  			
+					 */
+					
+					
+					
+					/*
+							 1. sql 작성
+							 2. VO 객체 생성
+							 3. 기능 메서드 선언.
+							  	1) 요청에 의한 입력 : 매개변수로 활용.
+							  	2) 데이터의 결과에 따라 리턴값 지정.
+							  		- insert, update, delete : void
+							  			ex) public void insertEmp(Emp ins)
+							  		- 단위 변수나 한개의 데이터
+							  			ex)
+							  			회원이 등록된 여부 : select * from member where ..
+							  			public boolean void isMember(String id, String pass)
+							  			상품의 갯수 : select count(*) from member where ...
+							  			public int memCount(Member sch)
+							  			회원 상세정보 : select * from member where id=@@@
+							  			public Member getMember(String id)
+							  		- 여러개의 데이터
+							  			ex)
+							  			공지사항
+							  			public ArrayList<Board> boardList(Board sch)
+							  			회원정보리스트
+							  			public ArrayList<Member> mlist(Member sch)
+							  			
+							  			
+							 */
+							
+							
+							
+							/*
+					 1. sql 작성
+					 2. VO 객체 생성 : sql의 결과값에 따른 컬럼명과 type을 확인하여 작성.
+					 3. 기능 메서드 선언.
+					  	1) 요청에 의한 입력 : 매개변수로 활용.
+					  	2) 데이터의 결과에 따라 리턴값 지정.
+					  		- insert, update, delete : void
+					  			ex) public void insertEmp(Emp ins)
+					  		- 단위 변수나 한개의 데이터
+					  			ex)
+					  			회원이 등록된 여부 : select * from member where ..
+					  			public boolean void isMember(String id, String pass)
+					  			상품의 갯수 : select count(*) from member where ...
+					  			public int memCount(Member sch)
+					  			회원 상세정보 : select * from member where id=@@@
+					  			public Member getMember(String id)
+					  		- 여러개의 데이터
+					  			ex)
+					  			공지사항
+					  			public ArrayList<Board> boardList(Board sch)
+					  			회원정보리스트
+					  			public ArrayList<Member> mlist(Member sch)
+					  			
+					  			
+					 */
+					
+					
+					
+					/*
+							 1. sql 작성
+							 2. VO 객체 생성
+							 3. 기능 메서드 선언.
+							  	1) 요청에 의한 입력 : 매개변수로 활용.
+							  	2) 데이터의 결과에 따라 리턴값 지정.
+							  		- insert, update, delete : void
+							  			ex) public void insertEmp(Emp ins)
+							  		- 단위 변수나 한개의 데이터
+							  			ex)
+							  			회원이 등록된 여부 : select * from member where ..
+							  			public boolean void isMember(String id, String pass)
+							  			상품의 갯수 : select count(*) from member where ...
+							  			public int memCount(Member sch)
+							  			회원 상세정보 : select * from member where id=@@@
+							  			public Member getMember(String id)
+							  		- 여러개의 데이터
+							  			ex)
+							  			공지사항
+							  			public ArrayList<Board> boardList(Board sch)
+							  			회원정보리스트
+							  			public ArrayList<Member> mlist(Member sch)
+							  			
+							  			
+							 */
+							
+							
+							
+							/*
 					 1. sql 작성
 					 2. VO 객체 생성 : sql의 결과값에 따른 컬럼명과 type을 확인하여 작성.
 					 3. 기능 메서드 선언.

@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class Computer {
 	private String company;
+	
+	// required=false
+	// 만일 컨테이너에 객체가 있다면, autowiring으로 객체를 할당 처리한다. 
+	
 	@Autowired(required=false)
 	private Cpu cpu;
 	@Autowired(required=false)
