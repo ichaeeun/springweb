@@ -24,7 +24,6 @@
 [하] 2. 특정패키지에 Emp(이름), Manager(이름), Ceo(이름) 클래스를 Company클래스(회사명,Emp, Manager, Ceo)로
         설정하여, 소스상 Autowired로 설정하여 호출처리하게 하세요.
 [하] 3. ModelAttribute란 무엇인가? 개념을 기술하고, 기본 예제를 만들어 보세요. 
-
 --%>
 <%--  
 [jquery]
@@ -32,26 +31,27 @@
     출력처리하세요. end()메서드 활용.
 --%>
  
---%>
 //
    $(document).ready(function(){
-      $("td").each(function(){
-    	  
+      $("td").each(function(idx){
+    	  $(this).text(idx+1)
       });
+      $("td").filter(function(idx,ele){
+    	  return (idx+1)%3==0;
+      }).css("background","orange");
+      $("tr").filter(function(idx,ele){
+    	  return (idx+1)%2==0;
+      }).css("color","tomato");
    });
 </script>
 </head>
-<div class="jumbotron text-center">
   <h2>JQUERY</h2>
-</div>
-<div class="container">
   <table class="table table-hover">
-    <tbody>
-      <tr class="text-center">
-        <td>내용</td>
-      </tr>
-    </tbody>
+      <tr class="text-center"><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr class="text-center"><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr class="text-center"><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr class="text-center"><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr class="text-center"><td></td><td></td><td></td><td></td><td></td></tr>
   </table>    
-</div>
 </body>
 </html>
