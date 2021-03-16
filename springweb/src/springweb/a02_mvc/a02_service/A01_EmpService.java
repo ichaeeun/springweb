@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import springweb.a02_mvc.a03_dao.A01_EmpDao;
+import springweb.z02_vo.Dept;
 import springweb.z02_vo.Emp;
+import springweb.z03_vo.EmpDept;
 
 @Service 
 public class A01_EmpService {
@@ -34,7 +36,32 @@ public class A01_EmpService {
 			System.out.println("job검색: "+e.getEname()+", "+e.getJob());
 		}
 		System.out.println("##부서별 최대 연봉: "+dao.getMaxSal(30));
+		dao.schEDGList(new EmpDept());
+//		dao.empInsert(new Emp("마길동(연습)","CLERK",7902,3500,100,10));
 		return dao.emplist(sch);
 	} 
+	public ArrayList<EmpDept> schEDGList(EmpDept sch){
+		return dao.schEDGList(sch);
+	}
+	public ArrayList<Emp> getMgrs(){
+		return dao.getMgrs();
+	};
+	public ArrayList<String> getJobs(){
+		return dao.getJobs();
+	};
+	public ArrayList<Dept> getDepts(){
+		return dao.getDepts();
+	};
+	public void empInsert(Emp ins) {
+		dao.empInsert(ins);
+	}; 
 }
+
+
+
+
+
+
+
+
 	

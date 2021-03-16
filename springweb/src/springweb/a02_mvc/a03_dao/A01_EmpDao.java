@@ -6,6 +6,7 @@ import java.util.HashMap;
 import springweb.z02_vo.Dept;
 import springweb.z02_vo.Emp;
 import springweb.z02_vo.Emp2;
+import springweb.z03_vo.EmpDept;
 
 // springweb.a02_mvc.a03_dao.A01_EmpDao : namespace 
 // emplist : id
@@ -40,4 +41,12 @@ public interface A01_EmpDao {
 	public ArrayList<Emp> getEmpByJob(String job);
 	public int getMaxSal(int deptno);
 	
+	
+	public ArrayList<EmpDept> schEDGList(EmpDept sch);
+	
+	public void empInsert(Emp ins); 
+	
+	public ArrayList<Emp> getMgrs();
+	public ArrayList<String> getJobs();
+	public ArrayList<Dept> getDepts();
 }

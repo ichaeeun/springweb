@@ -1,28 +1,48 @@
 # 스프링 화면 처리 프로세스 
+
+[서버]
+	특정위치에 WAS(web application server) 구동 
+	
 [클라이언트] 
-1. http://localhost:8080/springweb/start.do url 
+1. http://ip주소/도메인명:8080/springweb/start.do url 
+
 [서버] 
 2. [설정] web.xml
 	.do를 확인해서 front controller인 DispatcherServlet.java(framework) 
 3. [설정] dispatcher-servlet.xml을 호출하여, 
 	해당하는 컨테이너에 등록된 객체를 확인하고,
 	메모리에 로딩된 객체를 찾는다. 
+	controller/service/dao
+	context:component-scan basePackage=""
+	framework : mybatis(DB) 
+	이중에서 requestMapping("/start.do")가 있는 controller 
+	기능 메서드 찾기 
 4. [controller:주소호출] 위에 등록된 객체 안에서 url 패턴이 /start.do인것의 기능 메서드를 찾는다. 	
 	@RequestMapping("/start.do")
 	해당 controller의 기능메서드를 수행해준다. 
 	start(@RequestParam("name") String name, Model d)
 5. [controller:요청값처리]해당 기능 메서드에서 요청값과 model 값 설정은 매개변수로 받을 수 있다. 
 	public String start(@RequestParam("name") String name, Model d) 
+						Person s 
+						@ModelAttribute("sch") Person s 
+						
 6. [controller: 모델데이터 처리]
 	public String start(Model d) 
-7. [controller: view단 호출] 해당 기능 메서드에 문자열로 리턴된 view단으로 화면이 호출된다. 
-	return "jsp파일 위치"
-8. [view] 
-	${모델명.프로퍼티} 
-[클라리언트] 
-9. 서버에서 만들어진 화면을 response객체로 전달되어 client에 html로 전달하면,
-	브라우저에서는 해당 js/html/css 코드를 실행 및 랜더링하여 출력한다. 
+	d.addAttribute("모델key",모델객체); 
+	모델객체 : Service --> Dao --> mybatis Framework --> DB SERVER 
 	
+7. [controller: view단 호출] 해당 기능 메서드에 문자열로 리턴된 view단으로 화면이 호출된다. 
+	return "jsp파일 위치";		forward/redirect 
+	ModelAndView : model+view 
+	
+8. [view] 
+	${모델명.프로퍼티} ${emp.ename} == emp.getEname() 
+					cf) mybatis #{ename} 
+9. [설정] dispatcherServlet 최종으로 클라이언트에 전달 
+
+[클라이언트] 
+10. 서버에서 만들어진 화면을 response객체로 전달되어 client에 html로 전달하면,
+	브라우저에서는 해당 js/html/css 코드를 실행 및 랜더링하여 출력한다. 
 	
 # 스프링 핵심 구현
 1. front controller 선언 
@@ -30,8 +50,13 @@
 	
 2. 사용할 container 선언 
 	DispatcherServlet의 설정 값 처리 xml : 
-	IOC (Inversion Object Controller) 
+	IOC (Inversion Of Control) 개발자 ==> 컨테이너에 통제를 맡김 
 		- DI(Dependency Injection) - 의존성 주입 
+			ex) autowiring : 객체 vs 객체 메모리에 로딩된 상황에서 
+							 의존성이 있는 객체는 해당 객체의 메모리에 할당(주입) 
+							 Controller 안 
+							 @Autowired
+							 private Service service; 
 		- DL(Dependency Lookup) - 의존된 내용을 id/name으로 설정된 객체를 찾는 작업 
 		
 	dispatcher-servlet.xml : 여기에 선언하는 객체 활용방식을 정확하게 파악하고 
@@ -57,7 +82,7 @@
 					  비즈니스로직처리 
 			
 		controller <-- service <-- dao(실제 객체) 
-					  비즈니스로직처리 
+		모델데이터처리	  비즈니스로직처리 
 		
 	- Model : controller 안에 선언 
 		화면단에 보내줄 핵심 데이터 처리 
@@ -74,6 +99,8 @@
 		스프링의 view는 외부에서 url로 접근하지 못하고, 
 		controller를 통해서만 접근이 가능하게 처리한다. 
 		WebContent/WEB-INF : 아무나 접근 불가 !! 
+		ps) css/js 관련 기본 설정내용, 이미지는 WebContent 하위에 있어야지 소스 내에서 
+			${path}/경로/파일명 접근이 가능하다. 
 
 4. DI 
 	컨테이너에 사용할 객체 선언방법, 여러가지 효과적인 기능처리 선언방법 
@@ -82,15 +109,20 @@
 	1) 컨테이너에 선언 방법(connection) 
 		- 연결객체 
 		- mybatis 공통 xml 위치 
-		- dao 인터페이스 위치 
+		- dao 인터페이스 위치 : 컨테이너에서 지정해야지, 
+							mybatis framework에서 실제 객체를 만들어 준다. 
 	2) mybatis 공통 설정 xml 
 	3) 기능별 sql xml 설정 방법 
 	4) mybatis 프레임워크를 통해서 실체객체를 만들어 주는 dao interface 선언 패키지  
 	5) XXXmapper.xml vs DAO 인터페이스 mapping 
-	
+		dao 인터페이스 --> namespace 
+		메서드명 		--> id 
+		리턴값 		--> resultMap/resultType
+		매개변수 		--> parameterMap/parameterType 
+		
 6. MVC 중급 
 	1) 여러가지 viewer 활용 
-		- ajax를 json처리 
+		- ajax를 json처리 ==> jquery plugin 활용 
 		- 파일업/다운로드 
 		- 엑셀 다운로드 
 	2) 유효성 처리/예외 처리 
@@ -158,8 +190,21 @@
 2. 요청값+모델데이터를 동시에 처리 
 
 
-
-
+# 스프링에서 사용되는 Form 태그 
+1. 스프링에서는 <form:form 형식으로 태그의 form을 효과적으로 
+	처리할 수 있도록 tag lib를 사용할 수 있다. 
+2. form의 구성요소별 설정 내용	
+	1) lib 선언
+		<%@ taglib prefix="form"
+		uri="http://www.springframework.org/tags/form" %>
+	2) <form:form commandName="모델명"
+		하위에 있는 요소들을 setXXX property와 연동하여 준다. 
+			<form:input path="property명"> 
+		ex) 컨트롤러에 model로 d.addAttribute("emp",new Emp()) 
+			<form:form commandName="emp"
+				<form:input path="empno"> 
+				==> <input type="text" id="empno" name="empno" 
+							value="${emp.empno}"/> 
 
 
 

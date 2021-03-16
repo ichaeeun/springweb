@@ -1,8 +1,9 @@
-package springweb.z02_vo;
-// springweb.z02_vo.Emp
+package springweb.z03_vo;
+
 import java.util.Date;
 
-public class Emp {
+// springweb.z03_vo.EmpDept
+public class EmpDept {
 	private int empno;
 	private String ename;
 	private String job;
@@ -11,40 +12,13 @@ public class Emp {
 	private double sal;
 	private double comm;
 	private int deptno;
-	public Emp() {
+	private String dname;
+	private String loc; 
+	private int grade;
+	
+	public EmpDept() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	
-	
-	public Emp(String ename, String job, int mgr, double sal, double comm, int deptno) {
-		super();
-		this.ename = ename;
-		this.job = job;
-		this.mgr = mgr;
-		this.sal = sal;
-		this.comm = comm;
-		this.deptno = deptno;
-	}
-
-
-	public Emp(int mgr, String ename) {
-		super();
-		this.ename = ename;
-		this.mgr = mgr;
-	}
-
-
-	public Emp(int empno, String ename, String job, int mgr, Date hiredate, double sal, double comm, int deptno) {
-		super();
-		this.empno = empno;
-		this.ename = ename;
-		this.job = job;
-		this.mgr = mgr;
-		this.hiredate = hiredate;
-		this.sal = sal;
-		this.comm = comm;
-		this.deptno = deptno;
 	}
 	public int getEmpno() {
 		return empno;
@@ -57,6 +31,18 @@ public class Emp {
 	}
 	public void setEname(String ename) {
 		this.ename = ename;
+	}
+	public String getDname() {
+		return dname;
+	}
+	public void setDname(String dname) {
+		this.dname = dname;
+	}
+	public double getSal() {
+		return sal;
+	}
+	public void setSal(double sal) {
+		this.sal = sal;
 	}
 	public String getJob() {
 		return job;
@@ -76,12 +62,6 @@ public class Emp {
 	public void setHiredate(Date hiredate) {
 		this.hiredate = hiredate;
 	}
-	public double getSal() {
-		return sal;
-	}
-	public void setSal(double sal) {
-		this.sal = sal;
-	}
 	public double getComm() {
 		return comm;
 	}
@@ -93,6 +73,18 @@ public class Emp {
 	}
 	public void setDeptno(int deptno) {
 		this.deptno = deptno;
+	}
+	public String getLoc() {
+		return loc;
+	}
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 	
 }

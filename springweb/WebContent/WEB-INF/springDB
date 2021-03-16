@@ -5,12 +5,20 @@
 	 	- mybatis 공통 xml 선언 
 	 	- 사용할 DAO 인터페이스 패키지 위치 선언 
 	 2) mybatis 공통 xml 처리 
-	 	- 사용할 VO/DTO 등록 
-	 	- 개별 업무별 sql 저장할 mapper.xml 등록 
+	 	- 사용할 VO/DTO alias (단축명 사용 위해) 등록 
+	 	- 개별 업무별 sql 저장할 XXXmapper.xml 등록 
+	 		업무단위로 추가,
+	 		ex) emp 테이블 조회 등록 수정 삭제 ==> dao 1개, xxxMapper.xml 1개 
+	 			dept 테이블 조회 등록 수정 삭제 ==> dao, xxxMapper.xml 등록 
 	 3) XXXMapper.xml 
 	 	- namespace
-	 	- resultMap/resultType
-	 	- id
+	 	- resultMap/resultType ==> dao의 기능 메서드의 return 타입 형식에 따라서 
+	 							   ArrayList<VO> 
+	 							   ArrayList<String> ==> resultMap 
+	 							   int
+	 							   String 
+	 							   Person  ==> resultType 
+	 	- id					   
 	 	- parameterType 
 	 	
 2. DB 연결 화면 구현 순서 
@@ -28,7 +36,7 @@
 		dao 인터페이스명  == namespace 
 		dao 메서드명	   == id
 		리턴할 객체	   == resultMap/resultTyple
-		매개변수/매개객체  ==  parameterType
+		매개변수/매개객체  ==  parameterMap/parameterType 
 	2) Controller -- service -- dao 연동 처리관계 이해 
 		각각의 역할 이해 
 
@@ -49,10 +57,10 @@
 				 배열/ArrayList<Vo> - resultMap 상단에 선언한 후에 id값으로 설정 
 				 	ex) public ArrayList<Emp> empList(Emp sch) 
 				 		<resultMap type="emp" id="empResult"/>
-				 			<select resultMap="empResult"> 
+				 		<select resultMap="empResult"> 
 				 	ex) public String[] getEnames() 
-				 		<resultMap type="java.lang.String" id="strResult"/>
-				 			<select resultMap="strResult">
+				 		<resultMap type="String" id="strResult"/>
+				 		<select resultMap="strResult">
 			- 입력할 매개배변수 - parameterType 
 				없을 때, empList();  
 					선언하지 않는다. 
@@ -63,11 +71,70 @@
 				단일 객체 
 					emplist(Emp sch) 
 					<select parameterType="emp">
-				배열형 - parameterMap : 입력값이 배열형 객체일 때. 
-						public void insert(HashMap<String, Object> ins); 
+					public void insert(HashMap<String, Object> ins); 
 						<insert parameterType="hashmap" 
 							${키값} 
+				배열형 - parameterMap : 입력값이 배열형 객체일 때. 
+					ex) 승진할 사원전체정보를 다중의 사원번호를 통해서 검색
+						select * from where empno in (7800,7801,7802);
+						public ArrayList<Emp> schEmp(ArrayList<Integer> empnos)
+						<parameterMap type="int" id="intparam">
+						<select parameterMap="intParam" id="schEmp">
 			- id - 메서드명 
+
+# 사원정보 등록 처리 
+1. sql insert 
+	SELECT max(empno)+1 FROM emp01;
+	CREATE SEQUENCE emp01_seq
+		START WITH 7935
+		MINVALUE 1000
+		MAXVALUE 9999
+		CYCLE;
+	INSERT INTO emp01 values(emp01_seq.nextval,'홍길동','CLERK',7902,sysdate,3000,1000,10);
+	
+2. dto 확인 
+3. dao 작성 public void empInsert(Emp dto); 
+4. EmpMapper.xml 작성 
+5. 등록 인터페이스 EmpList 화면(jsp) 
+	- 이벤트 처리 (버튼처리) 
+	- 등록할 form url 호출 /insEmpForm.do 
+6. controller 추가 
+	/insEmpForm.do 
+7. view단 작성 
+	[DB] 사원번호 
+	[입력] 사원명 
+	[입력] 직책(select) 
+	[입력] 관리자(select) 
+	[DB]  입사일
+	[입력] 급여 
+	[입력] 보너스 
+	[입력] 부서명(select) 
+	action="${path}/insertEmp.do" 
+
+8. Controller 추가 
+	/insertEmp.do
+9. service
+	입력메서드 선언 public void empInsert(Emp dto);
+	dao 호출 empInsert(Emp dto) 
+10. Controller 에서 
+	1) 등록 service 호출 
+	2) 등록 처리 완료 모델 처리 
+11. view 
+	등록 완료 계속 등록 여부 처리 
+	
+	 
+
+	
+	
+	
+	
+
+
+
+
+
+
+
 					
 				
 

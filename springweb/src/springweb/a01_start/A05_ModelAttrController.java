@@ -1,11 +1,18 @@
 package springweb.a01_start;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import springweb.z02_vo.Emp;
 import springweb.z02_vo.Product;
+import springweb.z03_vo.Code;
+import springweb.z03_vo.SearchType;
+import springweb.z03_vo.SearchVo;
 
 @Controller 
 public class A05_ModelAttrController {
@@ -47,4 +54,44 @@ public class A05_ModelAttrController {
 		System.out.println("직책명: "+sch.getJob());
 		return "WEB-INF/views/a01_start/a11_modelAttrExp.jsp";
 	}
+	
+	/*
+	 # 공통 모델 attribute 설정 
+	 */
+	@ModelAttribute("searchTypeList")
+	public List<SearchType> search(){
+		List<SearchType> list = new ArrayList<SearchType>();
+		list.add(new SearchType(1,"제목"));
+		list.add(new SearchType(2,"작성자"));
+		list.add(new SearchType(3,"내용"));
+		return list;
+	}
+	@ModelAttribute("prodTypes")
+	public List<Code> prodTypes(){
+		List<Code> list = new ArrayList<Code>();
+		list.add(new Code("10","전자제품"));
+		list.add(new Code("20","식품"));
+		list.add(new Code("30","잡화"));
+		return list;
+	}
+	//http://localhost:8080/springweb/search01.do
+	@RequestMapping("/search01.do")
+	public String search1() {
+		return "WEB-INF/views/a01_start/a11_searchForm.jsp";
+	}
+	@RequestMapping("/search02.do")
+	public String search2(SearchVo vo, Model d) {
+		System.out.println("검색된 내용(type): "+vo.getType());
+		System.out.println("검색된 내용(query): "+vo.getQuery());
+		d.addAttribute("search",vo);
+		return "WEB-INF/views/a01_start/a11_searchForm.jsp";
+	}
+	
+	// http://localhost:8080/springweb/search03.do
+	@RequestMapping("/search03.do")
+	public String search3(@ModelAttribute("search") SearchVo vo) {
+		return "WEB-INF/views/a01_start/a12_searchForm.jsp";
+	}
+	
+	
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+   
+<mapper namespace="springweb.a02_mvc.a03_dao.Z01_ExpDao">
+	<resultMap type="dept" id="deptMap"></resultMap>
+	<!-- public ArrayList<Dept> deptList(Dept sch); -->
+	<select id="deptList" resultMap="deptMap" parameterType="dept">
+		select *
+        from dept
+        where dname like '%'||#{dname}||'%'
+        and job  like '%'||#{job}||'%'
+	</select>
+	<resultMap type="empg" id="empgMap"></resultMap>
+	<!-- public ArrayList<EmpGrade> empGrade(double d); -->
+	<select id="empGrade" resultMap="empgMap" parameterType="double">
+		SELECT empno, ename, sal, grade
+        FROM emp, salgrade
+        WHERE sal BETWEEN losal AND hisal
+        AND sal>=#{sal}
+	</select>
+	<resultMap type="emp" id="empMap"></resultMap>
+	<!-- public ArrayList<Emp> empSch2(HashMap<String,Double> hs); -->
+	<select id="empSch2" resultMap="empMap" parameterType="hashmap">
+		SELECT empno, ename, job, sal
+        FROM EMP e 
+        WHERE ( sal ge #{start} AND sal le #{end} )
+        OR job = #{job}
+	</select>
+	<!-- 
+	>= : ge (greater equal)
+	<= : le (less equal) 
+	=  : eq (equal)
+	 -->
+	 <!-- public ArrayList<EmpPart> empSch3(HashMap<String,String> hs); -->
+	 <resultMap type="empp" id="emppMap"></resultMap>
+    <select id="empSch3" resultMap="emppMap" parameterType="hashmap">
+    	SELECT ename, loc, to_char(hiredate, 'Q') part
+        FROM emp e, dept d
+        WHERE e.deptno = d.deptno
+        AND to_char(hiredate, 'Q') IN (#{p01},#{p02})
+    </select>
+    
+<!-- 
+			public ArrayList<EmpDept> empSch4(int deptno); 
+         	public ArrayList<String> empMgrSch(String ename);
+         	public double empMaxSal(ArrayList<String> enames);
+         	public ArrayList<Emp> empSch5(String year);
+ -->
+ 	 <resultMap type="empdept" id="edMap"></resultMap>
+     <select id="empSch4" resultMap="edMap" parameterType="int">
+      	select empno, ename, dname, sal
+      	from emp e, dept d
+      	where e.deptno = d.deptno
+      	and deptno = #{deptno} 
+     </select> 
+     <resultMap type="String" id="strMap"></resultMap>
+     <select id="empMgrSch" resultMap="strMap" parameterType="String">
+      	select e.ename 
+      	from emp e, emp m 
+      	where e.mgr = m.empno 
+      	and m.ename = #{ename} 
+     </select>
+     <parameterMap type="String" id="strParams"></parameterMap>
+     <select id="empMaxSal" resultType="double" parameterMap="strParams">
+      	select max(sal) 
+      	from emp 
+      	where ename in (#enames[0],#enames[1],#enames[2])
+      </select>
+      <select id="empSch5" resultMap="empMap" parameterType="String">
+      	select * from emp
+      	where to_char(hiredate,'YYYY') = #{year} 
+      </select>
+</mapper>
