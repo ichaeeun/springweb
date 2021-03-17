@@ -35,6 +35,7 @@
       $("#regBtn").click(function(){
     	  // 등록 컨트롤러 호출 
     	  location.href="${path}/insEmpForm.do";
+    	  // $(location).attr("href","${path}/insEmpForm.do");
       });
    });
 </script>

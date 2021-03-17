@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/springweb/a00_com/a00_com.css">
+<script type="text/javascript" src="/springweb/a00_com/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+/* 
+ # :contains("포함내용")
+ 1. 해당 내용을 포함한 요소객체 선택 처리 
+ 	html(),text() 로 포함된 내용 
+ # :empty
+ 2. 포함된 내용이 없을 때 요소객체 선택 
+ 	html(),text() 로 포함된 내용 
+ # :has(요소객체)
+ 3. 요소객체를 하위에 포함할 때, 선택 
+ # 기타 :parent(부모), .parent(), .parents() 
+*/
+//
+	$(document).ready(function(){
+		$("h2").text("포함된 선택자");
+		$("h3#ch01").click(function(){
+			$("#div01>div:contains('John')").css("text-decoration","underline");
+		});
+		
+		$("#ch02").click(function(){
+			$("#div02 td:empty").text("빈 문자열").css("background","green");
+		});
+		
+		$("#ch03").click(function(){
+			$("#div03>div:has(p)").css("background","pink");
+			$("#div03>div:has(#gil)").css("background","aliceblue");
+		});
+		// ex) 비밀번호 자동 생성 1~9 까지 숫자중에 임의 Math.floor(Math.random()*9+1	) 
+		//	   4자리 생성 7개 비밀번호를 만들어 
+		//	   table의 세로로 리스트하고, 이중에 번호가 5가 포함된 것은 배경색상으로 노란색으로 처리하세요 
+		/* $("#ch04").click(function(){
+			for(var i=0; i<=7;i++){
+				var num01 = Math.floor(Math.random()*9+1);
+				var num02 = Math.floor(Math.random()*9+1);
+				var num03 = Math.floor(Math.random()*9+1);
+				var num04 = Math.floor(Math.random()*9+1);
+				var pass = num01+""+num02+""+num03+""+num04;
+				$("#div04>#mkPass").append("<tr><td>"+pass+"</td></tr>");
+				$("#div04 td:contains('5')").css("background","pink");
+			}
+		}); */
+ 	
+ 		$("#ch04").click(function(){
+ 			var addPass="";
+ 			for(var row=1;row<=7;row++){
+ 				addPass+="<tr><td>";
+ 				for(var col=1;col<=4;col++){
+ 					var pass = Math.floor(Math.random()*9+1);
+ 					addPass+=pass;
+ 				}
+ 				addPass+="</td></tr>";
+ 			}
+ 			$("#mkPass").html(addPass);
+ 			$("#mkPass").find("td:contains('5')").css("background","pink");
+ 		})
+	});
+
+</script>
+</head>
+<body>
+   <h2></h2>
+   <h3 id="ch01">contains()</h3>
+   <div id="div01">
+   		<div>John Resig</div>
+   		<div>George Martn, john</div>
+   		<div>Malcom John Sinclair</div>
+   		<div>J. Ohn</div>
+   		<div>
+   			<span>Mr. John</span>
+   		</div>
+   </div>
+   
+   <h3 id="ch02">empty()</h3>
+   <div id="div02">
+   		<table border="1">
+   			<tr><td>TD #0</td><td></td></tr>
+   			<tr><td>TD #2</td><td></td></tr>
+   			<tr><td></td><td>TD #5</td></tr>
+   		</table>
+   </div>
+   
+   <h3 id="ch03">has()</h3>
+   <div id="div03">
+   		<div><p>홍길동</p></div>
+   		<div><div id="gil">김길동</div></div>
+   </div>
+   
+  <!--  // ex) 비밀번호 자동 생성 1~9 까지 숫자중에 임의 Math.floor(Math.random()*9+1	) 
+   //	   4자리 생성 7개 비밀번호를 만들어 
+   //	   table의 세로로 리스트하고, 이중에 번호가 5가 포함된 것은 배경색상으로 노란색으로 처리하세요  -->
+   <h3 id="ch04">비밀번호 생성 클릭</h3>
+   <div id="div04">
+   		<table id="mkPass"></table>
+   </div>
+</body>

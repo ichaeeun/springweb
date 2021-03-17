@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import springweb.a02_mvc.a02_service.A01_EmpService;
@@ -25,15 +27,18 @@ public class A01_EmpController {
 		return "WEB-INF/views/a02_mvc/a01_empList.jsp";
 	}
 	
-	@RequestMapping("/insEmpForm.do")
-	public String insEmpForm() {
+	// RequestMapping("/insEmpForm.do")
+	@GetMapping("/insEmpForm.do") //5.0 이후 지원 
+	public String insEmpForm(@ModelAttribute("ins") Emp ins) {
 		return "WEB-INF/views/a02_mvc/a01_empInsertForm.jsp";
 	}
 	
-	@RequestMapping("/insertEmp.do")
-	public String insertEmp(Emp ins) {
-		service.empInsert(ins);
+//	RequestMapping("/insertEmp.do")
+	@PostMapping("/insertEmp.do") // 5.0이후 post방식 전송 명시 처리 
+	public String insertEmp(@ModelAttribute("ins") Emp ins) {
 		System.out.println("##등록처리: "+ins.getEname());
+		service.empInsert(ins);
+		ins=null;
 		return "WEB-INF/views/a02_mvc/a01_empInsertForm.jsp";
 	}
 	
@@ -45,7 +50,10 @@ public class A01_EmpController {
 		return "WEB-INF/views/a02_mvc/a03_empDeptList.jsp";
 	}
 	
-	
+	/*
+	 EmpController를 처리하는 모든 url매핑된 메서드의 view단은 아래의 
+	 모델 어트리뷰트를 공유한다. 
+	 */
 	@ModelAttribute("jobs")
 	public ArrayList<String> getJobs(){
 		return service.getJobs();

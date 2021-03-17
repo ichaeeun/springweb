@@ -94,7 +94,7 @@
 	
 2. dto 확인 
 3. dao 작성 public void empInsert(Emp dto); 
-4. EmpMapper.xml 작성 
+4. EmpMapper.xml 작성 : namespace,id, parameterType, resultType/resultMap 
 5. 등록 인터페이스 EmpList 화면(jsp) 
 	- 이벤트 처리 (버튼처리) 
 	- 등록할 form url 호출 /insEmpForm.do 

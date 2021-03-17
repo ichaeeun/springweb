@@ -48,41 +48,40 @@
   </table>    
   </form:form>
   --%>
-  <form action="${path}/insertEmp.do" method="post">
+  <form:form modelAttribute="ins" action="${path}/insertEmp.do" method="post">
   <table class="table table-hover">
     <tbody>
     	<col width="30%"><col width="70%">
       <tr class="text-center">
-      	<th class="table-success">사원명</th><td><input name="ename" class="form-control"/></td> </tr>
-      <tr class="text-center"> 	<th class="table-success">직책</th>
+      	<th class="table-success">사원명</th>
+      	<td><form:input path="ename" class="form-control"/></td> </tr>
+      <tr class="text-center"><th class="table-success">직책</th>
       	<td>
-      	<select name="job" class="form-control mr-sm-2">
+      	  <%-- option에 대한 default 설명이나 항목이 필요 없는 경우 --%>
+      	<form:select path="job" class="form-control mr-sm-2">
        		<option value="">직책선택</option>
-       		<c:forEach var="job" items="${jobs }">
-       			<option>${job }</option>
-       		</c:forEach>
-        </select></td> </tr>
+       		<form:options items="${jobs }"></form:options>
+        </form:select></td> </tr>
        <tr class="text-center">	<th class="table-success">관리자</th><td>
-      	<select name="mgr" class="form-control mr-sm-2">
+       <%-- option에 대한 default 설명이나 항목이 필요 없는 경우 
+       		label과 value를 해당하는 객체의 property로 설정 
+       --%>
+      	<form:select path="mgr" class="form-control mr-sm-2">
        		<option value="0">관리자선택</option>
-       		<c:forEach var="mgr" items="${mgrs }">
-       			<option value="${mgr.mgr }">${mgr.ename }</option>
-       		</c:forEach>
-        </select></td> </tr>
+       		<form:options items="${mgrs }" itemLabel="ename" itemValue="mgr"/>
+        </form:select></td> </tr>
        <tr class="text-center">	<th class="table-success">급여</th><td><input name="sal" class="form-control"/></td> </tr>
        <tr class="text-center">	<th class="table-success">보너스</th><td><input name="comm" class="form-control"/></td> </tr>
        <tr class="text-center">	<th class="table-success">부서명</th><td> 
-      	<select name="deptno" class="form-control mr-sm-2">
+      	<form:select path="deptno" class="form-control mr-sm-2">
        		<option value="0">부서선택</option>
-       		<c:forEach var="dept" items="${depts }">
-       			<option value="${dept.deptno }">${dept.dname }</option>
-       		</c:forEach>
-        </select></td> 
+       		<form:options items="${depts }" itemLabel="dname" itemValue="deptno"/>
+        </form:select></td> 
       </tr>
        <tr class="text-center"><td colspan="2"><button class="btn btn-info" type="submit" id="regBtn">사원등록</button></td></tr>
     </tbody>
   </table>    
-  </form>
+  </form:form>
 </div>
 </body>
 </html>

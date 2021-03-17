@@ -43,9 +43,14 @@
          	<form:options items="${prodKind }"/>
          </form:select></td>
       </tr>
+       <tr class="text-center">
+       <th class="table-success">물건명</th>
+       <td><form:input path="name" class="form-control mr-sm-2" placeholder="물건명"/></td>
+       </tr>
       <tr class="text-center">
          <th class="table-success">가격</th>
-         <td><form:select path="price" class="form-control mr-sm-2">
+         <td>
+         <form:select path="price" class="form-control mr-sm-2">
          	<option value="">가격</option>
          	<form:options items="${prices }"/>
          </form:select></td>
@@ -69,6 +74,10 @@
       <tr class="text-center">
          <th class="table-success">물건 종류</th>
          <td>${purchase.kind }</td>
+      </tr>
+      <tr class="text-center">
+         <th class="table-success">물건명</th>
+         <td>${purchase.name }</td>
       </tr>
       <tr class="text-center">
          <th class="table-success">가격</th>

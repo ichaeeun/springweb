@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import springweb.z03_vo.Purchase;
 
 @Controller 
-@RequestMapping("/purchase.do")
+@RequestMapping("/buy.do")
 public class A07_FormExp {
 	/*
 	 # 구매물품 
@@ -29,6 +29,26 @@ public class A07_FormExp {
 		prodKind.add("잡화");
 		return prodKind;
 	}
+	
+	/*
+	 # 주의 
+	 1. 공통된 모델어트리뷰트와 요청값에 의해서나 모델에 의해서 처리하는 데이터 차이 
+	 2. 
+	 	물건종류 [전자제품/식품류/잡화] ==> 공통모델어트리뷰트에서 선언 
+	 			[submit] 클릭해서 요청값으로 선택한 내용을 처리하는 부분 
+	 		 ==>	public String postBuy(@ModelAttribute("prod") Product sch)		
+	 		 		Product의 setKind() 선택한 물건종류 할당 처리 
+	 		 		
+	 */
+	// http://localhost:8080/springweb/buy.do 
+//	GetMapping("/buy.do")
+//	public String buy(Model d) {
+//		d.addAttribute("prod",new Purchase());
+//		return "WEB-INF/views/a01_start/a14_formExp.jsp";
+//	}
+//	
+	
+	
 	@ModelAttribute("prices")
 	public ArrayList<Integer> prices(){
 		ArrayList<Integer> prices = new ArrayList<Integer>();
@@ -46,7 +66,7 @@ public class A07_FormExp {
 		}
 		return cnts;
 	}
-//	@RequestMapping("/purchase.do")
+//	RequestMapping("/purchase.do")
 //	public String form1(@ModelAttribute("purchase") Purchase purchase) {
 //		return "WEB-INF/views/a01_start/a14_formExp.jsp";
 //	}

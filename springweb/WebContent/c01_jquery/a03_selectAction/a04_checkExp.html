@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/jspexp/a00_com/a00_com.css">
+<script type="text/javascript" src="/jspexp/a00_com/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+/* 
+ 
+ 
+*/
+//
+	$(document).ready(function(){
+		$("h2").text("시작");
+		$("[type=checkbox]").click(function(){
+		// input ~ span : input 옆에 있는 span은 같은 형제객체일 때, 모두 다 배경색상을 초기화 처리 
+		$("input~span").css("background","");
+		// check된 input 옆에 있는 span을 모두다 배경색 노랑으로 처리 
+		$("input:checked~span").css("background","yellow");
+		// 가격을 가져오는 배열 처리 
+		var priceArray = $("input:checked +span +span");
+		// 갯수를 가져오는 배열 처리 
+		var cntArray = $("input:checked +span+span+span");
+		var tot = 0;
+		$(priceArray).each(function(idx,obj){
+			var price = $(obj).text();
+			// 가격과 index가 동일한 cnt값을 가져와서 반복문으로 tot값 누적 처리 
+			var cnt = $(cntArray).eq(idx).text();
+			tot+=price*cnt;
+		});
+		$("#tot").text(tot+"원");
+		});
+	});
+	// 아래와 같이 물건의 정보를 합산 처리 하세요 
+	//	장바구니 
+	//	[] 물건명 가격 갯수 
+	//	[] 사과	3000  2
+	//	[] 바나나 3000  2
+	// 	[] 딸기  12000 3
+	//		총계 @@@ => checked가 된것만 배경 색상 노란색, 하단에 총계 계산 처리 
+</script>
+</head>
+<body>
+   <h2></h2>
+    <div>장바구니</div>
+   	<div><input class="prod" type="checkbox" name="ap"><span>사과</span> <span>3000</span> <span>2</span></div>
+    <div><input class="prod" type="checkbox" name="ba"><span>바나나</span> <span>4000</span> <span>3</span></div>
+    <div><input class="prod" type="checkbox" name="st"><span>딸기</span> <span>12000</span> <span>1</span></div>
+  <h3>총계 <span id="tot"></span></h3>
+</body>
