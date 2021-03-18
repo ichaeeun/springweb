@@ -21,7 +21,14 @@
 		- 환경 설정 
 			container에 bean viewResolver를 등록 
 			json view를 등록 
-			
+		- controller에서 요청으로 호출하면, 
+			return "선언된 json처리 viewer" 
+	4) model 데이터의 json데이터 변환 기준 
+		m.setAttribute("emp",service.empList(sch));
+		{"emp":""} : 하나의 데이터 일 때 
+		{"emp":{"empno":7980,"ename":"홍길동"...}} : 1개 row단위 데이터  
+		{"emp":[{"empno":7980,"ename":"홍길동"...},{},{},{},...]} : 다중 row단위 데이터  
+		
 			
 3. jquery를 통한 ajax 통신 데이터 처리 
 	1) 서버단에 전달해온 데이터는 jquery에서 특정 이벤트에 의해, 
@@ -33,6 +40,62 @@
 				// 서버에서 받은 json객체를 활용할 수 있게 된다. 
 			}
 	    });
+	3) 속성 
+		type : 요청의 전달 방식 get/post방식 
+		url : 데이터를 가져올 controller단 mapping url ex) jsonEmp.do 
+		data : 서버에 요청할 query String 
+			- 순수 query String : "key=value&key=value.." 
+			- json객체형 : {key:value, key:value}
+			- form요소자동 query string 변경 + 한글 encoding 처리 : 
+				$("form").serialize()  
+		dataType : 결과값을 받는 형식을 지정, JSON.parse(), eval() 함수를 이용해서 
+			객체형으로 변환하지 않더라도 정상적으로 처리가 된다. 
+				xml(jsp/html로 DOM화면을 받아서 바로 처리), 
+				json(객체변환 필요하지 않음), text   
+		success:function(data){}
+			정상적으로 받았을 때, 처리할 데이터를 매개변수(data)로 처리할 수 있다. 
+			받은 객체를 each구문을 통해서 화면에 DOM객체로 할당 처리한다. 
+			controller 선언 : m.setAttribute("emp",...); 
+			data.모델명
+			{"emp":"안녕"} : 하나의 데이터 일 때 
+				data.emp ==> "안녕" 		
+			
+			{"emp":{"empno":7980,"ename":"홍길동"...}} : 1개 row단위 데이터  
+				data.emp.empno ==> 7980
+				var emp = data.emp;
+				emp.empno// emp.ename // emp.job... 
+			
+			{"emp":[{"empno":7980,"ename":"홍길동"...},{},{},{},...]} : 다중 row단위 데이터  
+				var empList = data.emp;
+				$(empList).each(function(idx,emp,array){
+					
+				});
+		
+		error:function(err){}
+			에러 발생했을 때, 처리할 함수정의 
+		
+ex) 연습예제 
+ 회원 id 등록 여부 확인 
+ 1. 처리순서 
+ 	1) sql 
+ 		SELECT * FROM MEMBEREXP;
+		-- id, pass, name, point, loc, regdate,author 
+		SELECT count(*) FROM MEMBEREXP m 
+		WHERE id= 'himan';
+	2) dao 작성 
+	3) mapper 작성 
+	4) controller 단 작성  A03_AjaxController.java
+		- 기본 화면 호출 
+			회원등록 여부 
+			[	][확인] enter 키나 버튼 둘다 
+			WEB-INF/views/a03_ajax/a03_regMember.jsp
+		- 데이터처리 
+			$.ajax();
+
+
+
+
+
 
 
 

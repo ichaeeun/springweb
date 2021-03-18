@@ -49,4 +49,6 @@ public interface A01_EmpDao {
 	public ArrayList<Emp> getMgrs();
 	public ArrayList<String> getJobs();
 	public ArrayList<Dept> getDepts();
+	
+	public String isMember(String id);
 }

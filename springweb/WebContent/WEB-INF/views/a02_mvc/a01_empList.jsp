@@ -47,6 +47,9 @@
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
      <form:form modelAttribute="sch" class="form-inline" method="post">
        <form:input path="ename" class="form-control mr-sm-2"  placeholder="사원명"/>
+       <%--
+       ${sch.job}을 가져와서 select 중에 동일한 내용을 선택해준다. 
+        --%>
        <form:select path="job" class="form-control mr-sm-2">
        		<option value="">직책선택</option>
        		<form:options items="${jobs }"/>

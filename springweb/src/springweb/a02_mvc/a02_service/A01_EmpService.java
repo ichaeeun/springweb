@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import springweb.a02_mvc.a03_dao.A01_EmpDao;
+import springweb.a02_mvc.a03_dao.Z01_ExpDao;
 import springweb.z02_vo.Dept;
 import springweb.z02_vo.Emp;
 import springweb.z03_vo.EmpDept;
@@ -15,6 +16,8 @@ import springweb.z03_vo.EmpDept;
 public class A01_EmpService {
 	@Autowired(required=false)
 	private A01_EmpDao dao;
+	@Autowired(required=false)
+	private Z01_ExpDao dao2;
 	public ArrayList<Emp> emplist(Emp sch){
 		if(sch.getEname()==null) sch.setEname("");
 		if(sch.getJob()==null) sch.setJob("");
@@ -55,6 +58,7 @@ public class A01_EmpService {
 	public void empInsert(Emp ins) {
 		dao.empInsert(ins);
 	}; 
+	
 }
 
 

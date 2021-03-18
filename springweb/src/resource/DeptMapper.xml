@@ -7,7 +7,7 @@
 	<!-- public ArrayList<Dept> deptList(Dept sch) -->
 	<resultMap type="dept" id="deptMap"></resultMap>
 	<select id="deptList" resultMap="deptMap" parameterType="dept">
-		select * from dept
+		select * from dept2
 		where dname like '%'||#{dname}||'%'
 		and loc like '%'||#{loc}||'%'
 	</select>

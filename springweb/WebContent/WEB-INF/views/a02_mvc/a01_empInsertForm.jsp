@@ -57,7 +57,15 @@
       	<td><form:input path="ename" class="form-control"/></td> </tr>
       <tr class="text-center"><th class="table-success">직책</th>
       	<td>
-      	  <%-- option에 대한 default 설명이나 항목이 필요 없는 경우 --%>
+      	  <%-- option에 대한 default 설명이나 항목이 필요 없는 경우 
+      	  1. 요청값에 대한 선택 setJob emp.getJob() 
+      	  		${emp.job} 으로 선택하게 처리 
+      	  		<select name="job"> 으로 된 값을 선택 
+      	  		==> Emp 객체 안에 job 속성 setJob, getJob() 
+      	  2. select의 option 리스트를 처리 
+			    모델어트리뷰트를 통해서 데이터리스트 처리 
+			    
+      	  --%>
       	<form:select path="job" class="form-control mr-sm-2">
        		<option value="">직책선택</option>
        		<form:options items="${jobs }"></form:options>

@@ -72,4 +72,5 @@
       	select * from emp
       	where to_char(hiredate,'YYYY') = #{year} 
       </select>
+     
 </mapper>
