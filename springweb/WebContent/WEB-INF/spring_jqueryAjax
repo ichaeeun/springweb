@@ -7,6 +7,21 @@
 		브라우저 화면 ==> 이벤트를 통한 요청 데이터 호출 ==> 스프링 
 		기반 서버 ==> 요청데이터를 json 형식으로 전달 ==> jquery에서 
 		받은 json데이터 DOM 생성 코드를 통해서 화면에서 출력 처리 
+	2) 개발 순서 
+		컨테이너에 json데이터 처리 view bean 선언 (pageJsonReport) 
+		spring 기본 초기 화면 controller, viwe단 생성 
+		비동기에 의해 필요로 하는 데이터 처리 sql 작성 
+		dao 작성 
+		XXXmapper.xml 작성 
+		service 
+		controller 에서 해당 기본 데이터 호출 화면에 로딩(json데이터 화면) 
+		spring 기본 초기 화면에서 event처리 jquery ajax호출 코드를 통해서 
+			controller에 mapping 되어 있는 데이터 처리 호출 
+			$.ajax({속성:속성값...});
+			success:function(data){}
+			data를 통해 받은 json데이터를 DOM객체 생성 코드를 통해서 처리 완료 
+			
+		
 		
 2. 스프링에서 ajax를 위해서 처리해야할 부분 
 	1) server단에서 사용하는 객체형식은 json형식을 문자열로 생성한다. 
@@ -51,7 +66,8 @@
 		dataType : 결과값을 받는 형식을 지정, JSON.parse(), eval() 함수를 이용해서 
 			객체형으로 변환하지 않더라도 정상적으로 처리가 된다. 
 				xml(jsp/html로 DOM화면을 받아서 바로 처리), 
-				json(객체변환 필요하지 않음), text   
+				json(객체변환 필요하지 않음), 
+				text   
 		success:function(data){}
 			정상적으로 받았을 때, 처리할 데이터를 매개변수(data)로 처리할 수 있다. 
 			받은 객체를 each구문을 통해서 화면에 DOM객체로 할당 처리한다. 

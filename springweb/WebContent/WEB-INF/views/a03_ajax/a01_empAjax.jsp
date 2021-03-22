@@ -29,9 +29,9 @@
     		//  alert($("form").serialize());
     		$.ajax({
     			type:"post",
-    			url:"${path}/jsonEmp.do",
-    			data:$("form").serialize(),
-    			dataType:"json",
+    			url:"${path}/jsonEmp.do",	// 데이터를 가져올 URL
+    			data:$("form").serialize(),	// 요청값에 대한 처리 
+    			dataType:"json",			// 매개변수로 받은 data의 type에 대한 선언 
     			success:function(data){
     			//	alert("데이터크기: "+data.emp.length);
     				console.log(data);

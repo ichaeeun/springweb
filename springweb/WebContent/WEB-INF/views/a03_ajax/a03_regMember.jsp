@@ -25,16 +25,22 @@
 //
    $(document).ready(function(){
 	   // form이 가지고 있는 submit처리 방지 .. 
+	   // 웹기반 화면에서 form 하위에 입력요소객체에서 enter키를 
+	   // 입력하면 submit()처리가 되는 경우가 있다. 
+	   // 이러한 default submit() 처리를 방지하기 위하여 아래와 같은 
+	   // 기능메서드를 선언하였다. : form이 submit 처리될 때 
+	   // e.preventDefault(); : 기본이벤트인 submit 방지 처리 
+	   
 	  $("form").submit(function(e){
 		  e.preventDefault();
 	  });
       $("#id").keyup(function(e){
-    	  if(e.keyCode==13){
+    	  if(e.keyCode==13){	// 입력할 항목에 enter키를 입력 시 처리 
     			ajaxCall();
     	  }
       });
       
-      $("#chkBtn").click(function(){
+      $("#chkBtn").click(function(){  // 등록 여부 확인 버튼 클릭 시 
     	  ajaxCall();
       });
       

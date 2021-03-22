@@ -46,7 +46,7 @@
 7. [controller: view단 호출] 해당 기능 메서드에 문자열로 리턴된 view단으로 화면이 호출된다. 
 	return "jsp파일 위치";	(forward방식을 기본) 
 						request/response(모델/요청/session/cookie) 모두 넘김 
-	return "forward:/다른 url mapping ex) "forward:/emp.do" 
+	return "forward:/다른 conroller내에 url mapping ex) "forward:/emp.do" 
 	return "redirect:/다른 url" : request/response 전달하지 않음 
 	ModelAndView : model+view 
 		addObject(모델 key, 모델값) 
