@@ -100,6 +100,7 @@
          	<property name="contentType" value="text/html;charset=utf-8"></property>
          </bean>
          <!-- 2. 파일업로드뷰 viewer  -->
+         <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
          <!-- 3. 파일다운로드뷰 viewer  -->
          <!-- 4. 엑셀뷰 viewer -->
          <!-- 5. pdf뷰 viewer -->

@@ -6,5 +6,6 @@ user2=scott
 pass=tiger 
 # driver dbrul user2 pass 
 # 파일 서버 정보 
-
+upload=/Users/ichaeeun/git/springweb/springweb/WebContent/z01_upload/
+uploadTmp=/Users/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/springweb/z01_upload/
 
