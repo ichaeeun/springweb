@@ -12,6 +12,8 @@
 		<typeAlias alias="empg" type="springweb.z03_vo.EmpGrade"/>
 		<typeAlias alias="empp" type="springweb.z03_vo.EmpPart"/>
 		<typeAlias alias="empdept" type="springweb.z03_vo.EmpDept"/>
+		<typeAlias alias="repository" type="springweb.z03_vo.Repository"/>
+		<typeAlias alias="filevo" type="springweb.z03_vo.FileVo"/>
 	</typeAliases>
 	
 	<!-- 3. sql이 저장되는 mapper.xml 등록 

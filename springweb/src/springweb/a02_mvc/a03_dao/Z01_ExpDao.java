@@ -1,6 +1,7 @@
 package springweb.a02_mvc.a03_dao;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 
 import springweb.z02_vo.Dept;
@@ -8,6 +9,7 @@ import springweb.z02_vo.Emp;
 import springweb.z03_vo.EmpDept;
 import springweb.z03_vo.EmpGrade;
 import springweb.z03_vo.EmpPart;
+import springweb.z03_vo.FileVo;
 
 //  springweb.a02_mvc.a03_dao.Z01_ExpDao
 public interface Z01_ExpDao {
@@ -21,5 +23,6 @@ public interface Z01_ExpDao {
  	public double empMaxSal(ArrayList<String> enames);
  	public ArrayList<Emp> empSch5(String year);
  	
- 	
+ 	// 파일 업로드 DAO 추가 
+ 	public void insertFile(FileVo ins);
 }

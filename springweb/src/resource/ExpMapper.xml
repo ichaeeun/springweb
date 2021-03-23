@@ -73,4 +73,10 @@
       	where to_char(hiredate,'YYYY') = #{year} 
       </select>
      
+     
+     
+     <!-- public void insertFile(FileVo ins) -->
+     <insert id="insertFile" parameterType="filevo">
+     	INSERT INTO fileexp values(#{content},#{fname})
+     </insert>
 </mapper>

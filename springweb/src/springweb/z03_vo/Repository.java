@@ -2,7 +2,7 @@ package springweb.z03_vo;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
+// springweb.z03_vo.Repository
 public class Repository {
 	private String content;
 	private MultipartFile[] report;
