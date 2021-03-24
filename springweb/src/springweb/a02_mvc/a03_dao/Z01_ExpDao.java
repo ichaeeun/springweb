@@ -25,4 +25,5 @@ public interface Z01_ExpDao {
  	
  	// 파일 업로드 DAO 추가 
  	public void insertFile(FileVo ins);
+ 	public ArrayList<FileVo> fileList();
 }

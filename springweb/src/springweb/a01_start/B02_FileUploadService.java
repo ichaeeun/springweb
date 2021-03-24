@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +35,13 @@ public class B02_FileUploadService {
 		String fname = null;
 		File tmpFile =null;
 		File orgFile = null;
+		System.out.println("파일갯수: "+rep.getReport().length);
+		// 임시파일 객체 
+		File pathFile = new File(uploadTmp);
+		for(File f:pathFile.listFiles()) {
+			System.out.println("삭제할 파일: "+f.getName());
+			f.delete();
+		}
 		
 		for(MultipartFile mpf:rep.getReport()) {
 			fname = mpf.getOriginalFilename();
@@ -58,5 +66,9 @@ public class B02_FileUploadService {
 				
 			}
 		}
+	}
+	
+	public ArrayList<FileVo> fileList(){
+		return dao.fileList();
 	}
 }

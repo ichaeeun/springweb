@@ -79,4 +79,9 @@
      <insert id="insertFile" parameterType="filevo">
      	INSERT INTO fileexp values(#{content},#{fname})
      </insert>
+     
+     <!-- public ArrayList<FileVo> fileList() -->
+     <select id="fileList" resultType="filevo">
+     	select * from fileexp
+     </select>
 </mapper>

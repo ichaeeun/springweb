@@ -24,29 +24,45 @@
 --%>
 //
    $(document).ready(function(){
-      
+	   $("#fnames").click(function(){
+     		var fname=$(this).children().eq(0).text();
+     	//	alert(fname);
+     		if(confirm(fname+"파일을 다운로드 하시겠습니까?")){
+     			location.href="${path}/fileDown.do?fname="+fname;
+     		} 
+     	});
    });
 </script>
 </head>
 <div class="jumbotron text-center">
-  <h2>파일업로드 연습</h2>
+  <h2>부트스트랩 form</h2>
 </div>
 <div class="container">
-<!--  파일 업로드 처리 -->
-     <form  method="post" enctype="multipart/form-data">
-     <!--  요청 url이 호출 url과 동일하기 때문에 action 생략가능 -->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+     <form class="form-inline" method="post">
        <input class="form-control mr-sm-2" type="text" 
-          name="content" value=""
-          placeholder="파일내용"><br>
-       <input class="form-control mr-sm-2" type="file" 
-          name="report"  value=""><br>
-       <input class="form-control mr-sm-2" type="file" 
-          name="report"  value=""><br>
-       <input class="form-control mr-sm-2" type="file" 
-          name="report"  value=""><br>
-             
-       <button class="btn btn-success" type="submit">자료업로드</button>
+          name="ename" value=""
+          placeholder="사원명">
+       <input class="form-control mr-sm-2" type="text" 
+          name="job"  value=""
+          placeholder="직책명">
+       <button class="btn btn-success" type="submit">Search</button>
      </form>
+  </nav>
+  <table class="table table-hover">
+    <thead>
+      <tr class="table-success text-center">
+        <th>타이틀</th>
+      </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="f" items="${flist }">
+      <tr id="fnames" class="text-center">
+        <td>${f.fname }</td>
+      </tr>
+     </c:forEach>
+    </tbody>
+  </table>    
 </div>
 </body>
 </html>
