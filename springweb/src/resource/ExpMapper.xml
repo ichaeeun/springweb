@@ -80,7 +80,10 @@
      	INSERT INTO fileexp values(#{content},#{fname})
      </insert>
      
-     <!-- public ArrayList<FileVo> fileList() -->
+     <!-- public ArrayList<FileVo> fileList() 
+     	  column명과 property가 동일할 때, resultType으로도 
+     	  ArrayList<VO>처리가 가능 	
+     -->
      <select id="fileList" resultType="filevo">
      	select * from fileexp
      </select>

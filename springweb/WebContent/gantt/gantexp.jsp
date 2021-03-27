@@ -13,6 +13,8 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${path}/a00_com/bootstrap.min.css" >
 <link rel="stylesheet" href="${path}/a00_com/jquery-ui.css" >
+<script src="codebase/dhtmlxgantt.js"></script>
+<link href="codebase/dhtmlxgantt.css" rel="stylesheet">
 <script src="${path}/a00_com/jquery.min.js"></script>
 <script src="${path}/a00_com/popper.min.js"></script>
 <script src="${path}/a00_com/bootstrap.min.js"></script>
@@ -24,34 +26,26 @@
 --%>
 //
    $(document).ready(function(){
-	   $(".data").click(function(){
-     		var fname=$(this).attr("id");
-     	//	alert(fname);
-     		if(confirm(fname+"파일을 다운로드 하시겠습니까?")){
-     			location.href="${path}/fileDown.do?fname="+fname;
-     		} 
-     	});
+      
    });
 </script>
+<style type="text/css" media="screen">
+    html, body{
+        margin:0px;
+        padding:0px;
+        height:100%;
+        overflow:hidden;
+    }
+
+</style>
 </head>
-<div class="jumbotron text-center">
-  <h2>파일리스트</h2>
-</div>
+<body>
 <div class="container">
-  <table class="table table-hover">
-    <thead>
-      <tr class="table-success text-center">
-        <th>내용</th> <th>파일명</th>
-      </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="f" items="${flist }">
-      <tr id="${f.fname }" class="text-center data">
-        <td>${f.content }</td><td>${f.fname }</td>
-      </tr>
-     </c:forEach>
-    </tbody>
-  </table>    
+	<div id="gantt_here" style='width:1000px; height:400px;'></div>
+    <script type="text/javascript">
+        gantt.init("gantt_here");
+    </script>
 </div>
+
 </body>
 </html>
