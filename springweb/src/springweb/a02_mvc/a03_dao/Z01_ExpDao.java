@@ -1,11 +1,12 @@
 package springweb.a02_mvc.a03_dao;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
 
+import springweb.z02_vo.Data;
 import springweb.z02_vo.Dept;
 import springweb.z02_vo.Emp;
+import springweb.z02_vo.Link;
 import springweb.z03_vo.EmpDept;
 import springweb.z03_vo.EmpGrade;
 import springweb.z03_vo.EmpPart;
@@ -26,4 +27,8 @@ public interface Z01_ExpDao {
  	// 파일 업로드 DAO 추가 
  	public void insertFile(FileVo ins);
  	public ArrayList<FileVo> fileList();
+ 	
+ 	public ArrayList<Data> loadData();
+ 	public ArrayList<Link> loadLink();
+ 	
 }

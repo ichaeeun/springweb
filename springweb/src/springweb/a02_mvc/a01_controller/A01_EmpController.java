@@ -69,4 +69,18 @@ public class A01_EmpController {
 	public ArrayList<Emp> getMgrs(){
 		return service.getMgrs();
 	}
+	
+	// json 데이터 가져오기 http://localhost:8080/springweb/loadData.do
+		@RequestMapping("loadData.do")
+		public String loadData(Model d) {
+			d.addAttribute("tasks",service.loadData());
+			d.addAttribute("links",service.loadLink());
+			return "pageJsonReport";
+		}
+	
+	//  http://localhost:8080/springweb/loadDataForm.do
+		@GetMapping("loadDataForm.do")
+		public String ajaxForm() {
+			return "WEB-INF/gantt/samples/01_initialization/02_load_json.jsp";
+		}
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>Load data from JSON file</title>
+<link rel="stylesheet" href="/springweb/a00_com/a00_com.css">
+<script type="text/javascript" src="/springweb/a00_com/jquery-3.5.1.js"></script>
+	<script src="../../codebase/dhtmlxgantt.js?v=7.0.13"></script>
+	<link rel="stylesheet" href="../../codebase/dhtmlxgantt.css?v=7.0.13">
+	<style>
+		html, body {
+			padding: 0px;
+			margin: 0px;
+			height: 100%;
+		}
+	</style>
+</head>
+<script>
+</script>
+<body>
+	<div id="gantt_here" style='width:100%; height:100%;'></div>
+	<script>
+		gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
+		gantt.init("gantt_here");
+//		gantt.load("${path}/loadData.do", "json");
+	</script>
+</body>

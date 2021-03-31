@@ -87,4 +87,15 @@
      <select id="fileList" resultType="filevo">
      	select * from fileexp
      </select>
+     
+     
+    <!--  public ArrayList<Data> loadData();
+ 	public ArrayList<Link> loadLink(); -->
+ 	<select id="loadData" resultType="data">
+ 		select * from gantt_tasks
+ 	</select>
+ 	<select id="loadLink" resultType="link">
+ 		select * from gantt_links
+ 	</select>
+ 	
 </mapper>

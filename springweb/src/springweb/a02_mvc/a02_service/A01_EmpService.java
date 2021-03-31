@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import springweb.a02_mvc.a03_dao.A01_EmpDao;
 import springweb.a02_mvc.a03_dao.Z01_ExpDao;
+import springweb.z02_vo.Data;
 import springweb.z02_vo.Dept;
 import springweb.z02_vo.Emp;
+import springweb.z02_vo.Link;
 import springweb.z03_vo.EmpDept;
 
 @Service 
@@ -59,6 +61,12 @@ public class A01_EmpService {
 		dao.empInsert(ins);
 	}; 
 	
+	public ArrayList<Data> loadData(){
+		return dao2.loadData();
+	}
+	public ArrayList<Link> loadLink(){
+		return dao2.loadLink();
+	}
 }
 
 

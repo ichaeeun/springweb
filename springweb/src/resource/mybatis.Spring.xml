@@ -14,6 +14,9 @@
 		<typeAlias alias="empdept" type="springweb.z03_vo.EmpDept"/>
 		<typeAlias alias="repository" type="springweb.z03_vo.Repository"/>
 		<typeAlias alias="filevo" type="springweb.z03_vo.FileVo"/>
+		<typeAlias alias="data" type="springweb.z02_vo.Data"/>
+		<typeAlias alias="link" type="springweb.z02_vo.Link"/>
+		<typeAlias alias="calen" type="springweb.z02_vo.Calendar"/>
 	</typeAliases>
 	
 	<!-- 3. sql이 저장되는 mapper.xml 등록 
@@ -24,5 +27,7 @@
 		<mapper resource="resource/ExpMapper.xml"/>
 		<mapper resource="resource/DeptMapper.xml"/>
 		<mapper resource="resource/AjaxMapper.xml"/>
+		<mapper resource="resource/CalenMapper.xml"/>
+		<mapper resource="resource/CalenExpMapper.xml"/>
 	</mappers>
 </configuration>
