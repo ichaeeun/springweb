@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import springweb.a02_mvc.a02_service.A04_CalenService;
 import springweb.z02_vo.Calendar;
@@ -29,9 +30,30 @@ public class A04_CalendarController {
 		return "pageJsonReport";
 	}
 	// http://localhost:8080/springweb/calendar.do?method=insert 
-	@GetMapping(params="method=insert")
-	public String insertCalendar(Calendar ins) {
+	@RequestMapping(params="method=insert")
+	public String insertCalendar(Calendar ins, Model d) {
 		service.insertCalendar(ins);
-		return "WEB-INF/views/a03_ajax/a04_fullcalendar.jsp";
+		// 등록 후 정상처리된 것을 model로 넘겨준다. 
+		d.addAttribute("success","Y");
+		return "pageJsonReport";
 	}
+	// http://localhost:8080/springweb/calendar.do?method=update 
+		@RequestMapping(params="method=update")
+		public String updateCalendar(Calendar upt, Model d) {
+			service.updateCalen(upt);
+			// 등록 후 정상처리된 것을 model로 넘겨준다. 
+			d.addAttribute("success","Y");
+			return "pageJsonReport";
+		}
+		
+		// http://localhost:8080/springweb/calendar.do?method=delete
+		@RequestMapping(params="method=delete")
+		public String deleteCalendar(@RequestParam("id") int id, Model d) {
+			service.deleteCalen(id);
+			// 등록 후 정상처리된 것을 model로 넘겨준다. 
+			d.addAttribute("success","Y");
+			return "pageJsonReport";
+		}
+	
+	
 }

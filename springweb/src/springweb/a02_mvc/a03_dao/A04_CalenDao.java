@@ -12,4 +12,7 @@ public interface A04_CalenDao {
 	public ArrayList<Calendar> calenList();
 	
 	public void insertCalendar(Calendar ins);
+	
+	public void updateCalen(Calendar upt); 
+	public void deleteCalen(int id); 
 }
