@@ -6,6 +6,7 @@
 <link rel="stylesheet" 
 	href="/jspexp/a00_com/a00_com.css">
 <script type="text/javascript" src="/jspexp/a00_com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
 <script type="text/javascript">
 /* 
  
