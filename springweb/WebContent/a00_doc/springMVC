@@ -362,7 +362,16 @@
 				HttpSession session = request.getSession();
 				session.setAttribute("sesMem",ckDB);
 			}
-	    {
+	    }
+	    
+	    @RequestMapping(params="method=logout")
+	    public String logout(HttpServletRequest request){
+	    	HttpSession session = request.getSession();
+	    	session.invalidate();
+	    	return "a04_login.do";
+	    }
+	    
+	    
 	3) 각 화면에서 처리 내용 
 		js
 		var sessId = "${sesMem.id}";
@@ -370,9 +379,32 @@
 			alert("로그인이 필요합니다!\n로그인화면으로 이동");
 			location.href="${path}/login.do";
 		}		
+		$("#uptBtn").click(function(){
+			var writer=$("[name=writer]").val();
+			if(sessId!=writer){
+				alert("작성자만이 수정가능합니다!");
+				return; 
+			}
+		});
+		$("#logout").click(function(){
+			location.href="${path}/logout.do";
+		});
+		
+		등록시, 작성자는 session의 id로만 입력이 가능하게 처리 
+		<input name="writer" readonly value="${sesMem.id}"/> 
+		
+3. 게시판 적용 
+	1) sql 확인 
+		select * from member where id=#{id} and pass=#{pass}
+	   vo 확인 
+	2) dao/mapper 작성 
+		public Member login(Member mem);
+	3) service
+	4) controller에서 로그인 화면 및 session처리
+	 
+	
 			
-			
-			
+	
 			
 			
 			

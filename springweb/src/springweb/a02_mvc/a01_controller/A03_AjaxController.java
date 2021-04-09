@@ -1,5 +1,7 @@
 package springweb.a02_mvc.a01_controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import springdi.z02_vo.Person;
 import springweb.a02_mvc.a02_service.A01_EmpService;
 import springweb.a02_mvc.a02_service.A02_DeptService;
 import springweb.a02_mvc.a02_service.A03_AjaxService;
@@ -70,4 +73,62 @@ public class A03_AjaxController {
 		d.addAttribute("mem",ajaxService.isMember(id));
 		return "pageJsonReport";
 	}
+	// http://localhost:8080/springweb/jsonExp01.do
+	@RequestMapping("jsonExp01.do")
+	public String jsonExp01(Model d) {
+		d.addAttribute("num01",25);
+		return "pageJsonReport";
+	}
+	
+	// http://localhost:8080/springweb/jsonExp02.do
+	@RequestMapping("jsonExp02.do")
+	public String jsonExp02(Model d) {
+		d.addAttribute("name","홍길동");
+		return "pageJsonReport";
+	}
+	
+	
+	
+	// http://localhost:8080/springweb/jsonExp03.do
+	// js에서 
+	// success:function(data){
+	//	 data.p01.name : 이름을 사용
+	// 	 var p01= data.p01;
+	//   p01.name, p01.age, p01.loc
+	// }
+	@RequestMapping("jsonExp03.do")
+	public String jsonExp03(Model d) {
+		d.addAttribute("p01",new Person("홍길동",25,"서울신림"));
+		return "pageJsonReport";
+	}	
+	// http://localhost:8080/springweb/jsonExp04.do
+	@RequestMapping("jsonExp04.do")
+	public String jsonExp04(Model d) {
+		ArrayList<Person> list= new ArrayList<Person>();
+		list.add(new Person("홍길동",25,"서울신림"));
+		list.add(new Person("신길동",26,"강남구"));
+		list.add(new Person("마길동",28,"서초구"));
+		list.add(new Person("김길동",22,"동작구"));
+		d.addAttribute("list",list);
+		return "pageJsonReport";
+	}	
+	// success: function(){
+	//    var plist=data.list;
+	//	  $.each(plist,function(idx,person,array){
+	//	 		person.name, person.age, person.loc 
+	//	  });
+	// }
+	
+	// 초기화면 호출 
+	// http://localhost:8080/springweb/ajaxFinal.do
+	@GetMapping("ajaxFinal.do")
+	public String ajaxFinal() {
+		return "WEB-INF/views/a03_ajax/a05_ajaxFinal.jsp";
+	}
 }
+
+
+
+
+
+
