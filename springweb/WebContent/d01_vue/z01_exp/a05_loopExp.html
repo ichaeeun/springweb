@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/springweb/a00_com/bootstrap.min.css" >
+<script type="text/javascript" src="/springweb/a00_com/jquery-3.5.1.js"></script>
+<script src="/springweb/a00_com/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+/* 
+ 1. 무지개 색상을 배열로 선언하고, 해당 색상으로 출력 처리 
+ 2. 단위객체를 book 
+ 	제목, 출판사 저자, 가격을 속성으로 설정하여 출력하세요 
+*/
+//
+   $(document).ready(function(){
+      var vm = new Vue({
+         el:".container",
+         data:{
+            title:"v-for 연습",
+            rainbow:["red","orange","yellow","green","blue","navy","purple"],
+            book: {title:"코드로 배우는 스프링웹 프로젝트", publish: "이지스퍼블리싱" , author:"남가람", price:15000}
+         }
+      });      
+      
+   });
+</script>
+</head>
+<body>
+<div class="container">
+  <div class="jumbotron text-center">
+   <h2>{{title}}</h2>
+   <h3 class="text-center" v-for="(color,idx) in rainbow" :style="{backgroundColor:color}">
+  			{{color}}
+  </h3>
+  </div>
+  <table class="table table-hover table-striped">
+    <tbody>
+      <tr v-for="(val,pro) in book" class="text-center">
+        <th v-text="pro"></th><td>{{val}}</td>
+      </tr>
+    </tbody>
+  </table>    
+</div>
+</body>
