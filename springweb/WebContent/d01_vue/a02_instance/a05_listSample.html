@@ -55,20 +55,22 @@ width:25%;
  		한건당 no 검색 : http://sample.bmaster.kro.kr/contacts/1592030163205
  		이름으로 검색 : http://sample.bmaster.kro.kr/contacts/search/jo
  	5) 주요 lib의 기능 확인 
- 		underscore.js : _.debounce() : 비동기 요청값 처리 시, 이중 이력을 방지, 부하 개선 
+ 		underscore.js : _.debounce(함수,1/1000초) : 비동기 요청값 처리 시, 이중 이력을 방지, 부하 개선 
  						ex) _.debounce(function(){
  								해당시간안에 두세번 처리하더라도 한번만 처리하게 한다. 
  								ajax통한 keyup 등 빠른 이벤트의 서버부하 감소 
  							},1/1000); 
  						
  		fetch.js : ajax를 통한 효과적인 비동기 처리 
- 			ex) fetch(url).then(function(){
+ 			ex) fetch(url).then(function(response){
+ 					
  					response.json(): 서버에서 받은 json데이터 
  					모델데이터에 할당하여 화면에 적용 처리 
  				})
  		s6-promise.auto.min.js : 
  			함수1(매개): 처리결과 return, 함수2(매개):처리, 처리결과, 함수3(매개) 처리 
- 			function(){}function(){}
+ 			함수(초기매개변수).then(함수1).then(함수2);
+ 			
  	6) Vue인스턴스에 모델 데이터, 
  		모델 데이터 : 검색이름, 검색중인지여부에 따른 상태, 검색 리스트 
  		함수 선언.  : search : 검색이름이 2자 이상일 때 처리 
@@ -111,11 +113,13 @@ width:25%;
         	 }, // 검색 키워드 클릭 시 이벤트 
         	 fetchContacts:_.debounce(function(){
         		 // this. 현재의 Vue() 객체 
+        		 // vm이라는 변수를 통해서 Vue() 객체가 가지고 있는 
+        		 // 모델데이터, 기능메서드 활용을 위해서 선언한다.
         		 var vm = this; 
         		 // Vue() 객체를 하위 메서드에서 사용하기 위해서 변수 지정 
         		 // 1. 모델데이터 초기화 
-        		 this.contactlist=[];
-        		 this.isProcessing=true; // 검색중 true 
+        		 this.contactlist=[]; // 리스트할 모델데이터 
+        		 this.isProcessing=true; // 저장 프로세스(조회중 표시)
         		 // 2. fetch api의 ajax 처리와 promise 형태의 함수처리 
         		 var url = "http://sample.bmaster.kro.kr/contacts/search/"+this.name; 
         		 fetch(url).then(function(response){
