@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/springweb/a00_com/bootstrap.min.css" >
+<script type="text/javascript" src="/springweb/a00_com/jquery-3.5.1.js"></script>
+<script src="/springweb/a00_com/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<template id="news01">
+	<div>
+		<h2>오늘의 뉴스</h2>
+		<ol>
+			<li>피피티해야됨</li>
+			<li>한글이미지</li>
+			<li>파이가 운다</li>
+		</ol>
+	</div>
+</template>
+<script type="text/javascript">
+/* 
+ex) 바로 선언한 물건명을 입력하는 컴포넌트와 
+	template 태그를 이용하여 
+		오늘의 뉴스(타이틀)
+		ol로 뉴스 3개를 컴포넌트를 선언하여 화면에 출력 처리 하세요 
+*/
+//
+   $(document).ready(function(){
+	   Vue.component("inputpname",{
+		   template:"<input class='form-control mr-sm-2' type='text' name='pname' placeholder='물건명을 입력하세요'/>"
+	   })
+	   Vue.component("news",{
+		   template:"#news01"
+	   })
+      var vm = new Vue({
+         el:".container",
+         data:{
+            title:"연습"
+         }
+      });      
+      
+   });
+</script>
+</head>
+<body>
+<div class="container">
+  <div class="jumbotron text-center">
+   <h2>{{title}}</h2>
+    <news></news>
+  </div>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+     <inputpname></inputpname>
+  </nav>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr class="table-success text-center">
+        <th>타이틀</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-center">
+        <td>내용</td>
+      </tr>
+    </tbody>
+  </table>   
+  
+</div>
+</body>
