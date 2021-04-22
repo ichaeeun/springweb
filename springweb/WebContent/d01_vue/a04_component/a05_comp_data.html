@@ -15,9 +15,21 @@
  	ex) 최상위가 body에 있는 화면 
  		body 에서 사용되는 컴포넌트를 템플릿을 정해서 
  		처리하는 컴포넌트가 차상위 컴포넌트라고 할 수 있다. 
+ 		테이블 컴포넌트가 있고, 그 하위에 tr 컴포넌트, 
+ 		td 컴포넌트를 구성했다면, 
+ 		테이블 컴포넌트는 tr 컴포넌트에 전송, tr 컴포넌트는 td 컴포넌트에 
+ 		데이터를 전송할 때, 활용되는 속성 
+ 		
  2. 이때, 전달할 데이터는 props라는 속성으로 속성값을 전달한다. 
  
-*/
+ 3. 여러가지 속성을 전달 
+ 	컴포넌트는 여러가지속성을 전달할 수 있다. 
+ 	<컴포넌트명 속성1 = "속성값" 속성2="속성값"> 
+ 	1) props:{
+ 		속성1:{type:속성값의 데이터유형,required:필수여부
+ 				default:속성값을 전달하지 않을 때 기본 속성값}
+ 	}
+ */
 //
    $(document).ready(function(){
 	  Vue.component("list-comp",{
@@ -30,10 +42,17 @@
 		  template:'<option>{{opt}}</option>',
 		  props:['opt']
 	  })
+	  Vue.component("list-comp2",{
+		  template:`<li>{{count}} {{msg}}</li>`,
+		  props:{
+			  msg:{type:String,default:"안녕하세요"},
+			  count:{type:Number,required:true}
+		  }
+	  })
       var vm = new Vue({
          el:".container",
          data:{
-            title:"연습"
+            title:"컴포넌트 데이터 전달(상위-->하위)"
          }
       });      
       
@@ -44,6 +63,12 @@
 <div class="container">
   <div class="jumbotron text-center">
    <h2>{{title}}</h2>
+   <ul>
+   	<list-comp2 msg="Hello" v-bind:count="1"></list-comp2>
+   	<list-comp2 msg="안뇽" :count="2"></list-comp2>
+   	<list-comp2 msg="gut ten tag!"></list-comp2> <!-- Error: Missing required prop: "count" -->
+   	<list-comp2 :count="3"></list-comp2>
+   </ul>
    <ul>
    		<list-comp msg="hellow"></list-comp>
    		<list-comp msg="안녕"></list-comp>
