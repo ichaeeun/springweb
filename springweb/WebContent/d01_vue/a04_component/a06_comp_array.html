@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/springweb/a00_com/bootstrap.min.css" >
+<script type="text/javascript" src="/springweb/a00_com/jquery-3.5.1.js"></script>
+<script src="/springweb/a00_com/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+/* 
+# 배열형 속성의 전달
+1. 상위에서 컴포넌트에 배열값을 전달하면,
+   해당 컴포넌트의 props 속성으로 type:Array를
+   통해서 전달할 수 있다.
+2. 다시 해당 배열은 template 안에서 v-for를 활용하여
+   데이터를 로딩하여 처리할 수 있다
+*/
+//
+   $(document).ready(function(){
+	  Vue.component("list-comp",{
+		  template:`<ul>
+	  					<li v-for="(cou,idx) in countries">{{idx+1}}){{cou}}</li>
+	  				</ul>`,
+	  	  props:{
+	  		  countries:{
+	  			  type:Array,
+	  			  default:function(){
+	  				  return['대한민국'];
+	  			  }
+	  			  
+	  		  }
+	  	  }
+	  })
+      var vm = new Vue({
+         el:".container",
+         data:{
+            title:"배열형 속성의 전달",
+            nations:['미국','영국','호주']
+         }
+      });      
+      
+   });
+</script>
+</head>
+<body>
+<div class="container">
+  <div class="jumbotron text-center">
+   <h2>{{title}}</h2>
+   <list-comp></list-comp>
+   <list-comp v-bind:countries="nations"></list-comp>
+  </div>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+     <form class="form-inline" method="post">
+       <input class="form-control mr-sm-2" type="text" 
+          name="ename" value=""
+          placeholder="사원명">
+       <input class="form-control mr-sm-2" type="text" 
+          name="job"  value=""
+          placeholder="직책명">
+       <button class="btn btn-success" type="submit">Search</button>
+     </form>
+  </nav>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr class="table-success text-center">
+        <th>타이틀</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-center">
+        <td>내용</td>
+      </tr>
+    </tbody>
+  </table>    
+</div>
+</body>
